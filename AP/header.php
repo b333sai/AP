@@ -12,6 +12,7 @@
  
  //To include all the associated scripts
   echo "<script src=script/script.js ></script>";
+  echo "<script src=script/jquery.js ></script>";
  //To include all the associated scripts
  
  
@@ -21,5 +22,6 @@
        </br><font size=4 >A complete information of all the colleges in India till 2013</font></center></div>';
 ?>
 <?php
+ include("connect.php");
  include("top_menu.php");
 ?>

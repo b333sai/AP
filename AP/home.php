@@ -1,13 +1,18 @@
 <?php
- echo '</br>
- <center><h1>Welcome to the admission portal - 2013</h1>
- </br></br>
- <h2>Select you stream</h2>
+ echo '
+ <center><h1>Welcome to the admission portal - 2013</h1></br></center>';
+ include("side_menu.php");
+ echo '<div id=article>
+ <center><div id=choice >
+ <h2>Select your stream</h2>
  </br>
  <table id="table1" >
- <tr><td id="select" ></td><td><a href="engineering.php" >Engineering</a></td></tr>
- <tr><td id="select" ></td><td><a href="medical.php" >Medical</a></td></tr>
- <tr><td id="select" ></td><td><a href="management.php" >Management</a></td></tr>
- </table></center></br></br></br></br></br></br></br></br></br></br>
- ';
+ <tr><td><input type=radio name=stream id=stream1 /><label for="stream1" onmouseover="highlight()" onmouseout="de_highlight()" />Engineering</td>
+ 
+ <td><input type=radio name=stream id=stream2 /><label for="stream2" onmouseout="de_highlight()" onmouseover="highlight()" >Medical</label></td>
+ 
+ <td><input type=radio name=stream id=stream3 /><label for="stream3" onmouseout="de_highlight()" onmouseover="highlight()" >Management</label></td>
+ 
+ </tr></table></div></center>
+ <p>Best site over all providing the utmost information about almost all the colleges in India in Engineering, Medical and Management streams.</p><p>This site provides you the complet information about a college before joining them.</p><p>Best site over all providing the utmost information about almost all the colleges in India in Engineering, Medical and Management streams.</p><p>This site provides you the complet information about a college before joining them.</p></div>';
 ?>
