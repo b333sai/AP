@@ -1,61 +1,95 @@
 <?php
-echo '<head><title>Institute Registration</title></head>';
+echo '<title>Institute Registration</title>';
 include("header.php");
 ?>
 <?php
 echo '<div id=page_container>
-<div id=content><center>
-<h1>Registration</h1>
-</br>
-<form name=register method=post action=coll_register.php >
-
-<table cellspacing=10 >
-<tr><td align=right id=left >Institute Name:</td><td align=left id=right ><input type=text name=coll_name size=45  id=right /></td></tr>
-
-<tr><td align=right  id=left >Institute Id:</td><td align=left  id=right ><input type=text name=coll_id size=30 id=right /></td></tr>
-
-<tr><td align=right  id=left >Streams:</td>
-<td align=left  id=right ><input type=checkbox name=stream value=engineering />Engineering&nbsp;&nbsp;&nbsp;<input type=checkbox name=stream value=medical />Medical&nbsp;&nbsp;&nbsp;<input type=checkbox name=stream value=management />Management</td>
-</tr>
-
-<tr><td align=right  id=left >Student intake:</td>
-<td align=left  id=right ><select>
-<option name=intake value=-1 id=right >select</option>
-<option name=intake value=90  id=right >10-100</option>
-<option name=intake value=100  id=right >100-200</option>
-<option name=intake value=300  id=right >200-500</option>
-<option name=intake value=500  id=right >500-1000</option>
-<option name=intake value=1000  id=right >above 1000</option>
-</select></td></tr>
-
-<tr><td align=right  id=left >Address:</td><td align=left  id=right ><input type=text name=coll_address  id=right size=45/></td></tr>
-
-<tr><td align=right  id=left >State:</td><td align=left  id=right >
-<select name=state ><option value=-1  id=right >select</option>';
-$result=mysql_query("SELECT * from states ");
-while($row=mysql_fetch_array($result))
+<div id=content>';
+if(isset($_POST['submit']))
 {
- $len=strlen($row[state]);
- $f=substr($row[state],0,2);
- $l=substr($row[state],$len-2,2);
- $name=$f.$l;
- echo "<option  id=right value=".$name." >".$row[state]."</option>";
+ $name=$_POST['coll_name'];
+ $id=$_POST['coll_id'];
+ 
+ $eng=$_POST['eng'];
+ $med=$_POST['mec'];
+ $man=$_POST['man'];
+ 
+ $audit=$_POST['audit'];
+ $cant=$_POST['cant'];
+ $comp=$_POST['comp'];
+ $medi=$_POST['medi'];
+ $gm=$_POST['gm'];
+ $lab=$_POST['lab'];
+ $lib=$_POST['lib'];
+ $spo=$_POST['spo'];
+ $host=$_POST['host'];
+ 
+ $intake=$_POST['students_intake'];
+ $address=$_POST['coll_address'];
+ $city=$_POST['city'];
+ $state=$_POST['state'];
+ $pincode=$_POST['pincode'];
+ $contact=$_POST['contact'];
+ $fax=$_POST['fax'];
+ 
+ $train=$_POST['train'];
+ $bus=$_POST['bus'];
+ 
+ $email=$_POST['emailid'];
+ $website=$_POST['website'];
+ 
+ $yop=$_POST['yoo'];
+ $director=$_POST['director'];
+//TO CHECK WHETHER THE REPETITIVE REGISTRATION OF COLLEGES//////////////////////////////////
+ $error=0;
+$select1=mysql_query("SELECT * from college_info WHERE id='$id' or email='$email' or address='$address' or phone='$contact' or fax='$fax' or website='$website' or director='$director' ");
+while($row1=mysql_fetch_array($select1))
+ {
+ $error=1;
+ }
+ 
+if($error)
+ {
+  echo '<center><font class=error >College Information already exists!!!</font></center><br />';
+  register_form();
+ }
+else
+ {
+  //TO CHECK WHETHER THE REPETITIVE REGISTRATION OF COLLEGES//////////////////////////////////
+
+ //to upload the file of the college///////////////
+ echo "<center>";
+ $allowedExtensions=array("jpeg","png","gif","jpg");
+ $fileExtension=end(explode(".",$_FILES["file"]["name"]));
+ //echo $_FILES["file"]["tmp_name"];
+ if(($_FILES["file"]["type"]=="image/jpeg" || $_FILES["file"]["type"]=="image/png" || $_FILES["file"]["type"]=="image/gif" || $_FILES["file"]["type"]=="image/jpg")&&
+ $_FILES["file"]["size"] < 2000000 && in_array($fileExtension,$allowedExtensions))
+  {
+   if($_FILES["file"]["error"] >0 )
+    {
+	 echo "<p class=error >Error Code:".$_FILES["file"]["error"]."</p>";
+	}
+   else
+    {
+	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".".$fileExtension );
+	 echo "<p class=success >File successfully uploaded!!!</p>";
+	}
+  }
+ else
+  {
+   echo "<p class=error >Unexpected Error!!!</p>";
+  }
+ //to upload the file of the college///////////////
+ 
+ mysql_query("INSERT  INTO `college_info` SET name='$name',id='$id',engineering='$eng',medical='$mec',management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$yop',director='$director' ");
+ echo "<p class=success >Thank You!!!</br>College has been successfully registerd.</p></center><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />";
+ }
 }
-
-echo '</select></td></tr>
-
-<tr><td align=right  id=left >City:</td><td align=left  id=right ><input type=text name=city  id=right size=30/></td></tr>
-
-<tr><td align=right  id=left >Pincode:</td><td align=left  id=right ><input type=text name=pincode  id=right size=6/></td></tr>
-
-
-<tr><td align=right  id=left >Contact no:</td><td align=left  id=right ><input type=text name=coll_name  id=right size=30/></td></tr>
-
-<tr><td></td><td align=left ><input type=submit name=submit  id=submit value=Submit /></td><td align=left ><input type=reset name=reset value=Reset id=reset align=right /></td></tr>
-
-</table>
-</form></center>
-</div></div>';
+else
+{
+register_form();
+}
+echo '</div></div>';
 ?>
 <?php
 include("footer.php");

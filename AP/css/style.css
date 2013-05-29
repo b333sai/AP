@@ -1,3 +1,4 @@
+/*THIS IS TO SET ALL THE COMMON PROPERTIES OF THE DOCUMENT///////////////////////////////////////////////////////////////*/
 body
 {
  font-family: "Times New Roman";
@@ -7,34 +8,43 @@ body
 h1,h2,h3,h4,h5,h6
 {
  margin: 0;
+ padding-left: 10px;
  color: black;
 }
 a,a:hover,a:active,a:focus
 {
  margin:0;
  text-decoration: none;
+ color: blue;
 }
+table.college_view
+{
+ border-collapse: collapse;
+}
+/*END OF THE COMMON PROPERTIES OF THE DOCUMENT////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*THIS WILL HOLD ALL THE CONTENTS OF THE WEBPAGES//////////////////////////////////////////////////////////////////////////*/
 #container
 {
  width: 1000px;
  margin: 0 auto;
   /* border: 1px solid violet; */
 }
-#content
+/*THIS WILL HOLD ALL THE CONTENTS OF THE WEBPAGES//////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*TO HOLD THE HEADER DETAILS//////////////////////////////////////////////////////////////////////////////////////////////*/
+#header/*WHICH HOLDS ALL THE HEADER CONTENTS*/
 {
- /* border: 3px solid pink; */
- width: 965px;
- color: black;
- font-family: Arial, Helvetica, sans-serif;
- padding: 30px 30px 30px 5px;
-}
-#header
-{
- height: 150px;
+ height: 120px;
  width: 1000px;
  margin: -8px auto;
  border-radius: 0 0 15px 15px;
  background-color: #77d5ff;
+ box-shadow:   0 0 15px #7d7d7d;
 /*   border: 1px solid grey;*/
 }
 #header a
@@ -42,14 +52,13 @@ a,a:hover,a:active,a:focus
  font-size: 65px;
  color: white;
 }
-#top_menu
+#top_menu/*TOP MENU IN THE HEADER*/
 {
  width: 1000px;
  height: 40px;
  margin: 8px auto;
  border-radius: 15px 15px 0 0;
   /* border: 1px solid black; */
-
 }
 #top_menu td
 {
@@ -57,10 +66,8 @@ width: 200px;
 }
 #top_menu a
 {
- box-shadow:   0 3px 3px #7d7d7d;
  display: block;
  height: 40px;
- margin: -3px;
  padding: 5px 0 0 0;
  font-size: 30px;
  background-color: #ea8f53;
@@ -71,22 +78,29 @@ width: 200px;
 {
  background-color: #ffab00;
 }
-
 #first
 {
  border-radius: 15px 0 0 0;
+}
+#second, #third, #fourth, #last
+{
+border-left: 0px solid white;
 }
 #last
 {
  border-radius: 0 15px 0 0;
 }
+/*TO HOLD THE HEADER DETAILS//////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+/*TO HOLD THE CONTENT OF THE SIDE MENU////////////////////////////////////////////////////////////////////////////////////*/
 #side_menu
 {
  width: 300px;
- left: 0px;
- top: 0px;
-/*  border: 1px solid yellow;
- */}
+ float: left;
+/*  border: 1px solid yellow;*/
+}
 #side_menu a
 {
  width: 270px;
@@ -95,47 +109,51 @@ width: 200px;
  display: block;
  height: 33px;
  background: #b5bcb9;
- border-radius: 0 8px 8px 0;
+ border-radius: 0 35px 35px 0;
  font-size: 19px;
  color: #0062b2;
 }
 #side_menu a:hover
 {
  color: white;
- border-left: 5px solid #a046f4;
+ border-left: 5px solid #f0611f;
+ background: #419eb2;
 }
+/*TO HOLD THE CONTENT OF THE SIDE MENU////////////////////////////////////////////////////////////////////////////////////*/
 
-#page_container
+
+
+/*TO HOLD THE CONTENTS OF THE PAGE/////////////////////////////////////////////////////////////////////////////////////////*/
+#page_container/*WHICH HOLDS ALL THE PAGE CONTAINER*/
 {
  font-family: Arial, Helvetica, sans-serif;
  width: 1000px;
- margin: 11px auto;
+ margin: 0 auto;
  border-radius: 0 0 15px 15px;
  background-color: white;
  color: #2e64fe;
+ box-shadow:   0 0 15px #7d7d7d;
+ float: left;
  /* border: 1px solid red; */
+}
+#content/*TO HOLD THE CONTENTS OF THE PAGE*/
+{
+ /* border: 3px solid pink; */
+ width: 965px;
+ color: black;
+ font-family: Arial, Helvetica, sans-serif;
+ padding: 30px 30px 30px 5px;
 }
 #page_container h1
 {
  color: #00903e;
 }
-#table td
-{
+/*TO HOLD THE CONTENTS OF THE PAGE/////////////////////////////////////////////////////////////////////////////////////////*/
 
-}
-#table1 a
-{
- margin-left: 5px;
- color: #3d93b5;
- display: block;
- padding: 5px 15px 5px 5px;
- margin-bottom: 10px;
- font-size: 30px;
-}
-#table1 a:hover
-{
- background-color: ;
-}
+
+
+
+/*HOME PAGE BRANCH SELECT*/
 #choice
 {
  font-size: 20px;
@@ -144,18 +162,32 @@ width: 200px;
 #choice td
 {
  width: 170px;
- color: #4b8297;
+ color: #ff4d00;
 }
 #choice label
 {
  font-size: 25px;
  cursor: default;
 }
+.radio
+{
+  width: 19px;
+  height: 25px;
+  padding: 0 5px 0 0;
+  display: block;
+  clear: left;
+  float: left;
+}
+/*HOME PAGE BRANCH SELECT*/
+
+
+
+/*CONTAINER IN WHICH THE TEXT CONTENTS ARE WRITTEN*/
 #article
 {
- width: 680px;
- margin-top: -232px;
- margin-left: 300px;
+ text-align: justify;
+ width: 665px;
+ float: right;
  /* border: 1px solid blue; */
 }
 #about,#article
@@ -163,32 +195,154 @@ width: 200px;
  font-family: Georgia;
  font-size: 20px;
 }
+#about
+{
+ padding-left: 20px;
+}
+/*CONTAINER IN WHICH THE TEXT CONTENTS ARE WRITTEN*/
 
+
+/*COLLEGE REGISTRATION FORM DETAILS//////////////////////////////////////////////////////////////////////////////////////*/
 #submit,#reset
 {
  font-size:23px;
 }
-/*/////////////////////////////////////////////////*/
-#left
+#reset
 {
- font-weight: bold;
- font-size: 18px;
- padding: 0 0 0 0;
- color: #0072a6;
+ margin-left: 150px;
 }
-#right
+#register
+{
+width: 965px;
+}
+#register td
+{
+ height: 32px;
+}
+.left
+{
+ font-size: 20px;
+ padding: 0 10px 0 0;
+ color: #0072a6;
+ text-align: right;
+ vertical-align: top;
+}
+.right
 {
  font-size: 16px;
  padding: 0 0 0 0;
- color: #474747;
+ color: black;
 }
-/*/////////////////////////////////////////////////*/
+#website
+{
+ color: #00772e;
+ text-decoration: underline;
+}
+/*for amenities selection*/
+#auditorium, #canteen, #computerlabs, #gym, #hostel, #laboratory, #library, #medical, #sports
+{
+ display: block;
+ width: 32px;
+ height: 32px;
+}
+#auditorium
+{
+ background: url("../images/amenities.png") 0px 0px  no-repeat;
+}
+#canteen
+{
+ background: url("../images/amenities.png") 0px -42px  no-repeat;
+}
+#computerlabs
+{
+ background: url("../images/amenities.png") 0px -84px  no-repeat;
+}
+#gym
+{
+ background: url("../images/amenities.png") 0px -126px  no-repeat;
+}
+#hostel
+{
+ background: url("../images/amenities.png") 0px -168px  no-repeat;
+}
+#laboratory
+{
+ background: url("../images/amenities.png") 0px -210px  no-repeat;
+}
+#library
+{
+ background: url("../images/amenities.png") 0px -252px  no-repeat;
+}
+#medical
+{
+ background: url("../images/amenities.png") 0px -294px  no-repeat;
+}
+#sports
+{
+ background: url("../images/amenities.png") 0px -336px  no-repeat;
+}
+
+/*COLLEGE REGISTRATION FORM DETAILS*/
+
+
+/*FOR THE GO TOP TAB ON THE BOTTOM OF EVERY PAGE*/
+#go_top
+{
+ background: #f3d396 url('../images/go_top.png') center right no-repeat;
+ border-radius: 5px 5px 5px 5px;
+ width:90px;
+ display: block;
+ font-size: 30px;
+ height: 30px;
+ padding: 0px 2px 0px 5px;
+}
+
+
+.error
+{
+ color: red;
+ font-size: 25px;
+}
+.success
+{
+ color: green;
+ font-size: 25px;
+}
+#s_query
+{
+ font-size: 15px;
+}
+.query_values
+{
+ color: #b6662d;
+}
+.search_results th
+{
+ background-color: #296796;
+ color: white;
+}
+.search_results td
+{
+ font-family: Arial;
+ font-size: 14px;
+ text-align: left;
+ color: white;
+}
+.sel /*this is for the width of selection input elements*/
+{
+ width: 140px;
+}
+/*FOOTER DETAILS///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 #footer
 {
+ clear: both;
  width: 1000px;
  background-color: #c3c3c2;
  margin: -10px auto;
  border-radius: 15px 15px 0 0;
  color: black;
-/*   border: 1px solid green;
- */}
+/*   border: 1px solid green;*/
+}
+/*FOOTER DETAILS///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+

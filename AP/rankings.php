@@ -1,12 +1,25 @@
 <?php
+ echo '<title>Rankings</title>';
  include("header.php");
+ echo '<script>
+onload=high(1);
+</script>';
 ?>
 <?php
- echo '<div id=page_container>
+ echo '<div id=page_container onload="high(1);">
        <div id=content >
-	   <center><h1>Rankings of all colleges</h1></center>';
+	   <center><h1>Rankings Of Colleges</h1></center>';
+	   ?>
+<?php
  include("side_menu.php");
- echo '<div id=article><p>This is a page dedicated for rankings of all the colleges</p></br></br></br></br></br></br><b/r></div></div></div>';
+ ?>
+<?php
+ echo '<div id=article >';
+ select_branch();
+ echo '<p>This page lets you know about the ranks of various colleges in India depending of you choice of the stream.</p><p>Choose the branch and know the results.</p></br></br></br></br></br></br><br/>';
+ go_top();
+ echo '</div>';
+ echo '</div></div>';
 ?>
 <?php
  include("footer.php");

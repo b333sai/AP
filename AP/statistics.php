@@ -1,12 +1,25 @@
 <?php
+ echo '<title>Statistics</title>';
  include("header.php");
+ echo '<script>
+onload=high(2);
+</script>';
 ?>
 <?php
  echo '<div id=page_container>
        <div id=content >
-	   <center><h1>Statictics of all colleges</h1></center>';
+	   <center><h1>Statistics Of Colleges</h1></center>';
+	   ?>
+<?php
  include("side_menu.php");
- echo '<div id=article><p>This is a page dedicated for Statistics of all the colleges</p></br></br></br></br></br></br><b/r></div></div></div>';
+ ?>
+<?php
+ echo '<div id=article >';
+ select_branch();
+ echo '<p>This page lets you know about the statistics of various colleges in India depending of you choice of the stream within an academic year.</p><p>Choose the branch and know the results.</p></br></br></br></br></br></br><br/>';
+ go_top();
+ echo '</div>';
+ echo '</div></div>';
 ?>
 <?php
  include("footer.php");
