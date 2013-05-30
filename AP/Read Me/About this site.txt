@@ -1,0 +1,24 @@
+About: This site is mainly meant for assisting the students in joining their new college after their intermediate of education.
+
+Main pages:
+---index.php
+---rankings.php
+---statistics.php
+---about.php
+---contact.php
+---search.php //to search various colleges on various criteria
+---view_college.php //to view a particular college
+---modify_college.php //used to change the college details
+---engineering.php
+---medical.php
+---management.php
+---coll_register.php //to register a new college
+
+Supporting pages:
+-------side_menu.php
+-------header.php
+-------footer.php
+-------functions.php
+-------home.php
+-------top_menu.php
+-------connect.php

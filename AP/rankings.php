@@ -8,15 +8,16 @@ onload=high(1);
 <?php
  echo '<div id=page_container onload="high(1);">
        <div id=content >
-	   <center><h1>Rankings Of Colleges</h1></center>';
+	   <center><h2>Rankings Of Colleges</h2></center>';
 	   ?>
 <?php
  include("side_menu.php");
  ?>
 <?php
- echo '<div id=article >';
+ echo '<div id=article ><br />';
  select_branch();
- echo '<p>This page lets you know about the ranks of various colleges in India depending of you choice of the stream.</p><p>Choose the branch and know the results.</p></br></br></br></br></br></br><br/>';
+ echo '<br /><p>This page lets you know about the ranks of various colleges in India depending of your choice of the stream.</p><p>Choose the branch and know the results.</p><br /><br /><br /><br /><br /><br />';
+ feedback();
  go_top();
  echo '</div>';
  echo '</div></div>';

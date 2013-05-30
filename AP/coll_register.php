@@ -29,8 +29,8 @@ if(isset($_POST['submit']))
  $city=$_POST['city'];
  $state=$_POST['state'];
  $pincode=$_POST['pincode'];
- $contact=$_POST['contact'];
- $fax=$_POST['fax'];
+ $contact=$_POST['contact'].$_POST['contact2'];
+ $fax=$_POST['fax'].$_POST['fax2'];
  
  $train=$_POST['train'];
  $bus=$_POST['bus'];
@@ -50,8 +50,8 @@ while($row1=mysql_fetch_array($select1))
  
 if($error)
  {
-  echo '<center><font class=error >College Information already exists!!!</font></center><br />';
-  register_form();
+  echo '<center><img src="images/sad.png" width=30 height=30 valign=bottom />&nbsp;&nbsp;&nbsp;<font class=error >College Information already exists!!!</font></center><br />';
+  register_form("0");
  }
 else
  {
@@ -72,7 +72,6 @@ else
    else
     {
 	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".".$fileExtension );
-	 echo "<p class=success >File successfully uploaded!!!</p>";
 	}
   }
  else
@@ -80,14 +79,14 @@ else
    echo "<p class=error >Unexpected Error!!!</p>";
   }
  //to upload the file of the college///////////////
- 
- mysql_query("INSERT  INTO `college_info` SET name='$name',id='$id',engineering='$eng',medical='$mec',management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$yop',director='$director' ");
- echo "<p class=success >Thank You!!!</br>College has been successfully registerd.</p></center><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />";
+ $c_date=r_time_stamp(time());
+ mysql_query("INSERT  INTO `college_info` SET name='$name',id='$id',engineering='$eng',medical='$mec',management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$yop',director='$director', date_created='$c_date', date_modified='$c_date'");
+ echo "<p class=success ><img src=images/congratulations.png /></br>Thank You!!!<br />College has been successfully registerd.</p></center><br /><br /><br /><br /><br />";
  }
 }
 else
 {
-register_form();
+register_form("0");
 }
 echo '</div></div>';
 ?>

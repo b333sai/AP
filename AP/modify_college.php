@@ -1,14 +1,92 @@
 <?php
+echo '<title>College Details Modification</title>';
 include("header.php");
 ?>
 <?php
-echo '<div id=page_container><div id=content>';
-include("side_menu.php");
-echo '<div id=article>';
- echo '<p>Please choose the options accordingly to reach the appropriate college. Select one or more choices to filter the colleges more precisely.</p>';
-search_form("normal");
-if(isset($_POST['sub']))
+echo '<div id=page_container>
+<div id=content><div id=modify_college >';
+if(isset($_GET['c']))
 {
+ register_form($_GET['c']);
+}
+else
+{
+if(isset($_POST['submit']))
+{
+ $name=$_POST['coll_name'];
+ $id=$_POST['coll_id'];
+ 
+ echo $eng=$_POST['eng'];
+ if(isset($_POST['mec']))
+  $med=1;
+ if(isset($_POST['man']))
+  $man=1;
+ 
+ $audit=$_POST['audit'];
+ $cant=$_POST['cant'];
+ $comp=$_POST['comp'];
+ $medi=$_POST['medi'];
+ $gm=$_POST['gm'];
+ $lab=$_POST['lab'];
+ $lib=$_POST['lib'];
+ $spo=$_POST['spo'];
+ $host=$_POST['host'];
+ 
+ $intake=$_POST['students_intake'];
+ $address=$_POST['coll_address'];
+ $city=$_POST['city'];
+ $state=$_POST['state'];
+ $pincode=$_POST['pincode'];
+ $contact=$_POST['contact'].$_POST['contact2'];
+ $fax=$_POST['fax'].$_POST['fax2'];
+ 
+ $train=$_POST['train'];
+ $bus=$_POST['bus'];
+ 
+ $email=$_POST['emailid'];
+ $website=$_POST['website'];
+ 
+ $yop=$_POST['yoo'];
+ $director=$_POST['director'];
+ 
+ $rank=$_POST['rank'];
+
+ //to upload the file of the college///////////////
+ echo "<center>";
+ if($_FILES["file"]["name"]!="")
+  {
+ $allowedExtensions=array("jpeg","png","gif","jpg");
+ $fileExtension=end(explode(".",$_FILES["file"]["name"]));
+ //echo $_FILES["file"]["tmp_name"];
+ if(($_FILES["file"]["type"]=="image/jpeg" || $_FILES["file"]["type"]=="image/png" || $_FILES["file"]["type"]=="image/gif" || $_FILES["file"]["type"]=="image/jpg")&&
+ $_FILES["file"]["size"] < 2000000 && in_array($fileExtension,$allowedExtensions))
+  {
+   if($_FILES["file"]["error"] >0 )
+    {
+	 echo "<p class=error >Error Code:".$_FILES["file"]["error"]."</p>";
+	}
+   else
+    {
+	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".".$fileExtension );
+	 echo "<p class=success >File successfully uploaded!!!</p>";
+	}
+  }
+ else
+  {
+   echo "<p class=error >Unexpected Error!!!</p>";
+  }
+ }
+ //to upload the file of the college///////////////
+ $m_date=r_time_stamp(time());
+ mysql_query("UPDATE `college_info` SET name='$name', engineering='$eng', medical='$med', management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$yop',director='$director', date_modified='$m_date', rank='$rank' WHERE id='$id' ");
+ echo "<br /><br /><p class=success ><img src=images/congratulations.png /></br>Details have been successfully saved!!!</p></center><br /><br />";
+}
+else
+{
+  echo '<p>Please choose the options accordingly to reach the appropriate college. Select one or more choices to filter the colleges more precisely.</p>';
+  search_form("change");
+ if(isset($_POST['sub']))
+  {
  $state;
  echo '<br /><p style="color:green;" >Search results for : </p><p id=s_query >';
  if($_POST['clg_name']!=-1)
@@ -140,22 +218,19 @@ $coun=0;
 	   echo 'Medical ';
 	  if($rows[management]==1)
 	   echo 'Management.';
-	  echo '</td><td><a target="_blank" href=view_college.php?c1='.$rows[id].'>Details</a></td></tr>';
+	  echo '</td><td><a target="_blank" href=modify_college.php?c='.$rows[id].'>Modify</a></td></tr>';
 	 }
 	 echo '</table><br /><br />';
 	}
 
 if($err)
  {
-  echo '<div class=error ><img src="images/sad.png" width=30 height=30 valign=bottom />&nbsp;&nbsp;&nbsp;College not found!!!</div><br /><br /><br />';
+  echo '<div class=error >College not found!!!</div><br /><br /><br />';
   $err=0;
  }
+  }
 }
-else
-{
-echo '<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />';
 }
-go_top();
 echo '</div></div></div>';
 ?>
 <?php

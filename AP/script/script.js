@@ -55,6 +55,40 @@ if(val==4)
 
 
 
+//THIS IS TO HIGHLIGHT THE SIDE MENU ITEM WHEN THE USER CLICKS ON THEM//////////////////////////////////////////////////////
+function clg_select()
+{
+$(".search_results tr"+this.value).css("background-color","black");
+}
+function high_side(val)
+{
+ if(val==1)
+  {
+   $("#t_med").css("background-color"," #419eb2");
+   $("#t_med").css("color","white");
+   $("#t_med").css("border-left","5px solid #f0611f");
+  }
+ else if(val==2)
+  {
+   $("#t_man").css("background-color","#419eb2");
+   $("#t_man").css("color","white");
+   $("#t_man").css("border-left","5px solid #f0611f");
+  }
+ else if(val==3)
+  {
+   $("#most_viewed").css("background-color","#419eb2");
+   $("#most_viewed").css("color","white");
+   $("#most_viewed").css("border-left","5px solid #f0611f");
+  }
+ else
+  {
+   $("#t_eng").css("background-color","#419eb2");
+   $("#t_eng").css("color","white");
+   $("#t_eng").css("border-left","5px solid #f0611f");
+  }
+}
+//THIS IS TO HIGHLIGHT THE SIDE MENU ITEM WHEN THE USER CLICKS ON THEM///////////////////////////////////////////////////////
+
 //Function to close the current tab in the browser/////////////////
 function win_close()
 {
@@ -96,8 +130,12 @@ function valid()
  var state=document.register.state.value;
  
  var pincode=document.register.pincode.value;
+ 
  var contact=document.register.contact.value;
+ var contact2=document.register.contact2.value;
+
  var fax=document.register.fax.value;
+ var fax2=document.register.fax2.value;
  
 
  var email=document.register.emailid.value;
@@ -155,17 +193,19 @@ function valid()
    document.register.pincode.focus();
    return false;
   }
- else if(/^[0-9]*$/.test(contact)==false || contact.length<10)
+ else if(/^[0-9]*$/.test(contact)==false || contact.length<2 || /^[0-9]*$/.test(contact2)==false || contact2.length<2)
   {
-   alert("Invalid Contact Number: "+contact);
+   alert("Invalid Contact Number: "+contact+contact2);
    document.register.contact.value="";
+   document.register.contact2.value="";
    document.register.contact.focus();
    return false;
   }
- else if(/^[0-9]*$/.test(fax)==false || (fax.length>0 && fax.length<10))
+ else if(/^[0-9]*$/.test(fax)==false || (fax.length>0 && fax.length<2) || /^[0-9]*$/.test(fax2)==false || (fax2.length>0 && fax2.length<10))
   {
-   alert("Invalid Fax Number: "+fax);
+   alert("Invalid Fax Number: "+fax+fax2);
    document.register.fax.value="";
+   docuemnt.register.fax2.value="";
    document.register.fax.focus();
    return false;
   }

@@ -3,7 +3,7 @@
 session_start();
 ?>
 <?php
-
+ echo '<title>Admission Portal</title>';
 //THIS IS TO INCLUDE THE HEADER COMMON TO ALL THE FILES///////////////////////////////////////////////////////////////////////
  include("header.php");
  echo '<script>

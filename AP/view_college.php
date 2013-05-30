@@ -8,6 +8,7 @@ echo '<div id=article>';
 echo '<div id=view_college>';
 echo '<p class=success align=center >College Details</p>';
 echo '<table name=college_view class=college_view cellspacing=10 cellpadding=3 border=1 >';
+mysql_query("UPDATE `college_info` SET views=views+1 WHERE id='$_GET[c1]'  ");
 $select=mysql_query("SELECT * from college_info WHERE id='$_GET[c1]' ");
 while($row=mysql_fetch_array($select))
  {
@@ -95,10 +96,10 @@ while($row=mysql_fetch_array($select))
   echo '<tr><td class=left >State:</td><td>'.$r[state].'</td></tr>';
    }
   echo '<tr><td class=left >Pincode:</td><td>'.$row[pincode].'</td></tr>';
-  echo '<tr><td class=left >Contact:</td><td>+91 - '.$row[phone].'</td></tr>';
+  echo '<tr><td class=left >Contact:</td><td>+91 - ('.substr($row[phone],0,2).') - '.substr($row[phone],2,strlen($row[phone])).'</td></tr>';
   if($row[fax]!="")
    {
-  echo '<tr><td class=left >Fax:</td><td>+91 - '.$row[fax].'</td></tr>';
+  echo '<tr><td class=left >Fax:</td><td>+91 - ('.substr($row[fax],0,2).') - '.substr($row[fax],2,strlen($row[fax])).'</td></tr>';
    }
   if($row[train]!="")
    {
@@ -110,6 +111,8 @@ while($row=mysql_fetch_array($select))
    {
   echo '<tr><td class=left >Website:</td><td><a href='.$row[website].' target="_blank" alt='.$row[id].' title='.$row[id].' >'.$row[website].'</td></tr>';
    }
+  echo '<tr><td class=left >Views:</td><td>'.$row[views].'</td></tr>';
+  echo '<tr><td class=left >Rank:</td><td>'.$row[rank].'</td></tr>';
 
  }
 echo '</table>';
