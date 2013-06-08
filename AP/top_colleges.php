@@ -79,6 +79,8 @@ if($res_count!=0)
   else
    echo ' college ';
   echo 'found!</p>';
+  if($res_count>=2)
+   echo '<span style="color:blue;font-size:15px;" >* Select any two colleges to compare!</span>';
  }
 else
 {
@@ -91,7 +93,11 @@ while($r=mysql_fetch_array($s))
  {
 	  if($f==1)
 	   {
-	  echo '<tr align=center ><th>#</th><th>Name</th><th>Code</th>';
+	  echo '<tr align=center >';
+	  if($res_count>=2)
+	   echo '<th>*</th>';
+	  
+	  echo '<th>#</th><th>Name</th><th>Code</th>';
 	  if($_GET['stream']=="most_viewed")
 	   {
 	    echo '<th>Views</th>';
@@ -100,13 +106,15 @@ while($r=mysql_fetch_array($s))
 	   {
 	    echo '<th>Rank</th>';
 	   }
-	  echo '<th>Visit</th></tr>';
+	  echo '<th>More</th></tr>';
 	   $f=0;
 	   }
 	  $count++;
-	  echo '<tr id='.$r[id].'>
-	  <td>'.$count.'</td>
-	  <td>'.$r[name].'</td><td>'.$r[id].'</td>';
+	  echo '<tr id='.$r[id].' >';
+	  if($res_count>=2)
+	   echo '<td><input type=checkbox id=c name=c value='.$r[id].' onclick=return(check_two(this)) /></td>';
+	   
+	   echo '<td>'.$count.'</td><td>'.$r[name].'</td><td>'.$r[id].'</td>';
 	  if($_GET['stream']=="most_viewed")
 	   {
 	    echo '<td>'.$r[views].'</td>';
@@ -115,10 +123,21 @@ while($r=mysql_fetch_array($s))
 	   {
 	    echo '<td>'.$r[rank].'</td>';
 	   }
-	  echo '<td><a target="_blank" href=view_college.php?c1='.$r[id].'>Details</a></td></tr>';
+	  echo '<td><a target="_blank" href=view_college.php?c1='.$r[id].' style="color:white;" ><u><b color=white ><big>Details</big></b></u></a></td></tr>';
  }
-echo '</table><br /><br />';
-echo feedback().go_top().'</div>';
+
+echo '</table><br />';
+if($res_count>=2)
+ echo '<div onclick=return(select_two()) id=compare >COMPARE</div><br />';
+ 
+if($res_count>=10)
+ go_top();
+else
+echo '<br /><br /><br /><br />';
+
+
+feedback();
+echo '</div>';
 echo '</div></div>';
 ?>
 <?php

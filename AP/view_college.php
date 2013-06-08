@@ -107,7 +107,7 @@ while($row=mysql_fetch_array($select))
   }
   echo '<tr><td class=left >Nearest Bus Station:</td><td>'.$row[bus].'</td></tr>';
   echo '<tr><td class=left >Email:</td><td><a href=mailto:'.$row[email].' target="_blank"  title='.$row[email].' alt=.'.$row[id].' >'.$row[email].'</a></td></tr>';
-  if($row[email]!="")
+  if($row[website]!="")
    {
   echo '<tr><td class=left >Website:</td><td><a href='.$row[website].' target="_blank" alt='.$row[id].' title='.$row[id].' >'.$row[website].'</td></tr>';
    }

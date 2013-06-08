@@ -3,9 +3,9 @@
       PUBLIC "-//W3C//DTD HTML 4.01//EN"
       "http://www.w3.org/TR/html4/strict.dtd">
 <?php
- echo '<html lang="en-US" ><body >';
+ echo '<html lang="en-US" ><body>';
  echo '<head>
-  <link rel="shortcut icon" href="favicon.ico">';
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">';
  
  //To include all the style sheets    
   echo "<link rel=stylesheet type=text/css href=css/style.css />";

@@ -215,7 +215,7 @@ border-left: 0px solid white;
 #about,#article
 {
  font-family: Georgia;
- font-size: 20px;
+ font-size: 18px;
 }
 #about
 {
@@ -357,9 +357,13 @@ width: 665px;
  text-align: left;
  color: white;
 }
+.search_results_selected tr
+{
+ background-color: black;
+}
 .sel /*this is for the width of selection input elements*/
 {
- width: 140px;
+ width: 138px;
 }
 .note
 {
@@ -374,6 +378,36 @@ width: 665px;
 #modify_college
 {
  padding-left: 30px;
+}
+#comparision/*comparision table*/
+{
+ width: 950px;
+ border-collapse:collapse;
+ margin-left: 20px;
+}
+#comparision th
+{
+ background: grey;
+ color: white;
+}
+#comparision td
+{
+ width: 380px;
+}
+#comparision td.left
+{
+ width: 190px;
+}
+#compare
+{
+ background-color: green;
+ color: white;
+ border-radius: 5px 5px 5px 5px;
+ border: 2px solid grey;
+ width: 100px;
+ height: 25px;
+ text-align: center;
+ margin: 0 auto;
 }
 /*FOOTER DETAILS///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 #footer

@@ -67,7 +67,7 @@ if(isset($_POST['submit']))
 	}
    else
     {
-	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".".$fileExtension );
+	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".png" );
 	 echo "<p class=success >File successfully uploaded!!!</p>";
 	}
   }
@@ -83,12 +83,13 @@ if(isset($_POST['submit']))
 }
 else
 {
-  echo '<p>Please choose the options accordingly to reach the appropriate college. Select one or more choices to filter the colleges more precisely.</p>';
-  search_form("change");
+  echo '<center><h1>Modify a college</h1></center>';
+  echo '<p>Please choose the options accordingly to reach the appropriate college. Select one or more choices to filter the colleges more precisely.</p><br />';
+  search_form("change","0");
  if(isset($_POST['sub']))
   {
  $state;
- echo '<br /><p style="color:green;" >Search results for : </p><p id=s_query >';
+ echo '<br /><center><p style="color:green;" >Search results for : </p><p id=s_query >';
  if($_POST['clg_name']!=-1)
   {
    echo "<b>College::</b><i class=query_values >".$_POST['clg_name']."</i>";
@@ -207,7 +208,7 @@ $coun=0;
 	  $err=0;
 	  if($f==1)
 	   {
-	  echo '<tr align=center ><th>Select</th><th>Sno.</th><th>Name</th><th>Code</th><th>Stream</th><th>Visit</th></tr>';
+	  echo '<tr align=center ><th>Select</th><th>Sno.</th><th>Name</th><th>Code</th><th>Stream</th><th>Modify</th></tr>';
 	   $f=0;
 	   }
 	  $coun++;
@@ -218,9 +219,9 @@ $coun=0;
 	   echo 'Medical ';
 	  if($rows[management]==1)
 	   echo 'Management.';
-	  echo '</td><td><a target="_blank" href=modify_college.php?c='.$rows[id].'>Modify</a></td></tr>';
+	  echo '</td><td><a target="_blank" href=modify_college.php?c='.$rows[id].' style="color:white;"><big><u><b>Details</b></u></big></a></td></tr>';
 	 }
-	 echo '</table><br /><br />';
+	 echo '</table></center><br />';
 	}
 
 if($err)
@@ -231,6 +232,8 @@ if($err)
   }
 }
 }
+echo '<br /><br />';
+feedback();
 echo '</div></div></div>';
 ?>
 <?php

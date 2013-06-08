@@ -13,6 +13,12 @@ $(".college_view td").css("padding-left","10px");
 $(".search_results tr").mouseover(function(){
  $(this).css("background-color","orange");
  });
+
+$(".search_results tr").click(function(){
+ $(this).css("background-color","black");
+ });
+ 
+
 $(".search_results tr:even").mouseout(function(){
  $(this).css("background-color","#929292");
  });
@@ -20,14 +26,28 @@ $(".search_results tr:even").mouseout(function(){
 $(".search_results tr:odd").mouseout(function(){
  $(this).css("background-color","#7a7a7a");
  });
+ 
+$("#compare").mouseover(function(){
+$(this).css("background-color","brown");
+$(this).css("cursor","default");
+$(this).css("border","2px solid orange");
+});
+$("#compare").mouseout(function(){
+$(this).css("background-color","green");
+$(this).css("border","2px solid grey");
+});
 
 });
 
 //THIS IS TO HIGHLIGHT THE MENU ITEM WHEN THE USER CLICKS ON THEM///////////////////////////////////////////////////////////
+
+
 function clg_select()
 {
 $(".search_results tr"+this.value).css("background-color","black");
 }
+
+
 function high(val)
 {
 if(val==4)
@@ -58,7 +78,8 @@ if(val==4)
 //THIS IS TO HIGHLIGHT THE SIDE MENU ITEM WHEN THE USER CLICKS ON THEM//////////////////////////////////////////////////////
 function clg_select()
 {
-$(".search_results tr"+this.value).css("background-color","black");
+$(this).css("background-color","black");
+return true;
 }
 function high_side(val)
 {
@@ -105,11 +126,11 @@ function win_close()
 function change_loc(value)
 {
  if(value==1)
-  window.location="engineering.php";
+  window.location="search.php?stream=eng";
  else if(value==2)
-  window.location="medical.php";
+  window.location="search.php?stream=med";
  else
-  window.location="management.php";
+  window.location="search.php?stream=man";
   
 }
 //////////////////////////////////////////////////////////////
@@ -241,8 +262,82 @@ function valid()
 }
 //////////////////////////////////////TO VALIDATE THE COLLEGE REGISTRATION FORM//////////////////////////////////////////////
 
+var check_count=0;
+var c1="";
+var c2="";
+var val;
+//////////////////////for checking only two colleges for comparision////////////////////////////////////////////////////////
+function check_two(obj,count)
+{
+ /*for(var i=1;i<=count;i++)
+  {
+   if(document.coll_list.che.checked)
+    {
+	 check_count++;
+	}
+  }
+  */
+ if(obj.checked)
+  {
+  check_count++;
+  if(check_count<=2)
+   {
+  if(c1=="")
+   {
+    c1=obj.value;
+	//alert(c1);
+   }
+  else
+   {
+    c2=obj.value;
+	//alert(c2);
+   }
+   }
+ //alert("checked"+check_count);
+  }
+ else
+  {
+   if(c2!="")
+    c2="";
+   else
+    c1="";
+  check_count--;
+ //alert("unchecked"+check_count);   
+  }
+  
+  
+ if(check_count>2)
+  {
+  alert("Please select only two colleges!!!");
+  check_count--;
+  return false;
+  }
+ return true;
+}
+
+function select_two()
+{
+ if(check_count<2)
+  {
+   alert("Please select exactly two colleges!!!");
+   return false;
+  }
+ else
+  {
+   val="compare_colleges.php?c1="+c1+"&c2="+c2;
+   //alert(val);
+   //window.location="compare_colleges.php?c1="+c1+"&c2="+c2;
+window.open(
+  val,'_blank' // <- This is what makes it open in a new window.
+);
+   return true;
+  }
+}
+//////////////////////for checking only two colleges for comparision////////////////////////////////////////////////////////
 
 
-
-
-
+function row_select()
+{
+ var ele=getElementById("c");
+ alert("attempted to check");
+}

@@ -317,7 +317,7 @@ echo '</select></td></tr>';
 
 echo '<tr><td align=right  class=left ><font color=red>*</font>Pincode:</td><td align=left  class=right ><input type=text name=pincode  class=right size=6 maxlength=6 required /></td></tr>';
 
-echo '<tr><td align=right  class=left >Contact:</td><td align=left  class=right >+91 - (<input type=text name=contact  class=right size=1  maxlength=2 required/>) - <input type=text name=contact2 class=right size=8 maxlength=8 required /></td></tr>';
+echo '<tr><td align=right  class=left ><font color=red>*</font>Contact:</td><td align=left  class=right >+91 - (<input type=text name=contact  class=right size=1  maxlength=2 required/>) - <input type=text name=contact2 class=right size=8 maxlength=8 required /></td></tr>';
 
 echo '<tr><td align=right  class=left >Fax:</td><td align=left  class=right >+91 - (<input type=text name=fax  class=right size=1  maxlength=2 />) - <input type=text name=fax2 class=right size=8 maxlength=8 /></td></tr>';
 
@@ -363,7 +363,7 @@ echo '</table>
 function select_branch()
 {
  echo '<center><div id=choice >
- <h4>Select your stream</h4>
+ <h4>Select to Search</h4>
  </br>
  <table id="table1" >
  
@@ -377,19 +377,25 @@ function select_branch()
  </tr></table></div></center>';
 }
 
-function search_form($v)
+function search_form($v,$s)
 {
 if($v=="change")
  {
 echo '<div id=search align=center >
 	  <table name=search_table cellspacing=10 >
-	  <form action=modify_college.php method=post name=csearch  >';
- }
+	  <form action=modify_college.php';
+echo ' method=post name=csearch  >';
+}
 else
  {
   echo '<div id=search align=center >
 	  <table name=search_table cellspacing=10 >
-	  <form action=search.php method=post name=csearch >';
+	  <form action=search.php';
+if($s!="0")
+{
+ echo '?stream='.$s;
+}
+echo ' method=post name=csearch >';
  }
 echo '<tr>
 	  <td rowspan=7 valign=top ><input type=submit id=submit name=sub value=Search /></td>

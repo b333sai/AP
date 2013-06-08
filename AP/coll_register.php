@@ -71,7 +71,7 @@ else
 	}
    else
     {
-	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".".$fileExtension );
+	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".png" );
 	}
   }
  else
@@ -81,7 +81,7 @@ else
  //to upload the file of the college///////////////
  $c_date=r_time_stamp(time());
  mysql_query("INSERT  INTO `college_info` SET name='$name',id='$id',engineering='$eng',medical='$mec',management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$yop',director='$director', date_created='$c_date', date_modified='$c_date'");
- echo "<p class=success ><img src=images/congratulations.png /></br>Thank You!!!<br />College has been successfully registerd.</p></center><br /><br /><br /><br /><br />";
+ echo "<p class=success ><img src=images/congratulations.png /></br>Thank You!!!<br />College has been successfully registerd.</p></center><br /><br /><br /><br /><br /><br /><br />";
  }
 }
 else
