@@ -5,7 +5,7 @@ include("header.php");
 <?php
 echo '<div id=page_container>
 <div id=content><div id=modify_college >';
-if(isset($_GET['c']))
+if(isset($_GET['c']) && !(isset($_POST['submit'])))
 {
  register_form($_GET['c']);
 }
@@ -13,14 +13,64 @@ else
 {
 if(isset($_POST['submit']))
 {
+ //echo $_GET['c'];
  $name=$_POST['coll_name'];
- $id=$_POST['coll_id'];
+ $shrt_name=$_POST['coll_short_name'];
+ $coll_code=$_POST['coll_code'];
  
- echo $eng=$_POST['eng'];
+ 
+ $eng=$_POST['eng'];
  if(isset($_POST['mec']))
   $med=1;
  if(isset($_POST['man']))
   $man=1;
+ 
+ $eng_courses=array();
+ $med_courses=array();
+ $man_courses=array();
+ 
+ if(isset($_POST['eng']))
+  {
+ foreach($_POST['engineering'] as $option)
+  {
+  $eng_courses[]=$option;
+  }
+  for($i=1;$i<sizeof($eng_courses);$i++)
+   {
+    $eng_courses[0].="<br /><br />* ".$eng_courses[$i];
+   }
+   $eng_courses[0]="* ".$eng_courses[0];
+  }
+ if(isset($_POST['med']))
+  {  
+ foreach($_POST['medical'] as $option)
+  {
+   $med_courses[]=$option;
+  }
+  for($i=1;$i<sizeof($med_courses); $i++)
+   {
+    $med_courses[0].="<br /><br />* ".$med_courses[$i];
+   }
+   $med_courses[0]="* ".$med_courses[0];
+  }
+ if(isset($_POST['man']))
+  {
+ foreach($_POST['management'] as $option)
+  {
+   $man_courses[]=$option;
+  }
+  for($i=1;$i<sizeof($man_courses); $i++)
+   {
+    $man_courses[0].="<br /><br />* ".$man_courses[$i];
+   }
+   $man_courses[0]="* ".$man_courses[0];
+  }
+ 
+
+ $affiliated=$_POST['affiliated'];
+ $category=$_POST['category'];
+ $type=$_POST['type'];
+ 
  
  $audit=$_POST['audit'];
  $cant=$_POST['cant'];
@@ -46,10 +96,12 @@ if(isset($_POST['submit']))
  $email=$_POST['emailid'];
  $website=$_POST['website'];
  
- $yop=$_POST['yoo'];
+ $established=$_POST['yoo'];
  $director=$_POST['director'];
  
- $rank=$_POST['rank'];
+ $crpass=$_POST['crpass'];
+ $npass=$_POST['npass'];
+
 
  //to upload the file of the college///////////////
  echo "<center>";
@@ -67,7 +119,7 @@ if(isset($_POST['submit']))
 	}
    else
     {
-	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$id.".png" );
+	 move_uploaded_file($_FILES["file"]["tmp_name"], "logos/".$_GET['c'].".png" );
 	 echo "<p class=success >File successfully uploaded!!!</p>";
 	}
   }
@@ -78,7 +130,97 @@ if(isset($_POST['submit']))
  }
  //to upload the file of the college///////////////
  $m_date=r_time_stamp(time());
- mysql_query("UPDATE `college_info` SET name='$name', engineering='$eng', medical='$med', management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$yop',director='$director', date_modified='$m_date', rank='$rank' WHERE id='$id' ");
+ $q="UPDATE `college_info` SET ";
+ if($name!="")
+  {
+   $q.=" name='$name', ";
+  }
+ if($shrt_name!="")
+  {
+   $q.=" shrt_name='$shrt_name', ";
+  }
+ if($coll_code!="")
+  {
+   $q.=" coll_code='$coll_code', ";
+  }
+ if($eng==1)
+  {
+   $q.=" engineering='$eng', ";
+  }
+ if($med==1)
+  {
+   $q.=" medical='$med', ";
+  }
+ if($man==1)
+  {
+   $q.=", management='$man', ";
+  }
+  
+ $q.="auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host' ,intake='$intake',category='$category', type='$type',state='$state',year_of_opening='$established', ";
+ if($email!="")
+  {
+   $q.=" email='$email', ";
+  }
+ if($affiliated!="")
+  {
+   $q.=" affiliated='$affiliated', ";
+  }
+ if($address!="")
+  {
+   $q.=" address='$address', ";
+  }
+ if($city!="")
+  {
+   $q.=" city='$city', ";
+  }
+ if($pincode!="")
+  {
+   $q.=" pincode='$pincode', ";
+  }
+ if($contact!="")
+  {
+   $q.=" phone='$contact', ";
+  }
+ if($fax!="")
+  {
+   $q.=" fax='$fax', ";
+  }
+ if($train!="")
+  {
+   $q.=" train='$train', ";
+  }
+ if($bus!="")
+  {
+   $q.=" bus='$bus', ";
+  }
+ if($website!="")
+  {
+   $q.=" website='$website', ";
+  }
+ if($director!="")
+  {
+   $q.=" director='$director', ";
+  }
+  if($crpass!="")
+   {
+    $crpass=md5($crpass);
+	$sl=mysql_query("SELECT * from college_info WHERE ap_id='$_GET[c]' and password='$crpass' ");
+  while($rws=mysql_fetch_array($sl))
+   {
+	  $npass=md5($npass);
+	  $q.=" password='$npass',  ";
+   }
+   }
+   
+  $q.=" date_modified='$m_date', eng_courses='$eng_courses[0]', med_courses='$med_courses[0]', man_courses='$man_courses[0]' WHERE ap_id='$_GET[c]' ";
+  
+
+  
+ //mysql_query("INSERT  INTO `college_info` SET name='$name',shrt_name='$shrt_name', coll_code='$coll_code',engineering='$eng',medical='$mec',management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$established',director='$director', date_created='$c_date', date_modified='$c_date',category='$category', type='$type', affiliated='$affiliated', app_no='$app_no', eng_courses='$eng_courses[0]', med_courses='$med_courses[0]', man_courses='$man_courses[0]', ap_id='$ap_id' ");
+ 
+ //mysql_query("UPDATE `college_info` SET name='$name', engineering='$eng', medical='$med', management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$yop',director='$director', date_modified='$m_date', rank='$rank', eng_courses='$eng_courses[0]', med_courses='$med_courses[0]', man_courses='$man_courses[0]' WHERE ap_id='$_GET[c]' ");
+ //echo $q;
+ mysql_query($q);
  echo "<br /><br /><p class=success ><img src=images/congratulations.png /></br>Details have been successfully saved!!!</p></center><br /><br />";
 }
 else
@@ -94,9 +236,9 @@ else
   {
    echo "<b>College::</b><i class=query_values >".$_POST['clg_name']."</i>";
   }
- if($_POST['clg_id']!=-1)
+ if($_POST['clg_shrt_name']!=-1)
   {
-   echo "<b> College Code::</b><i class=query_values >".$_POST['clg_id']."</i>";
+   echo "<b> Short name::</b><i class=query_values >".$_POST['clg_shrt_name']."</i>";
   }
  if($_POST['clg_director']!=-1)
   {
@@ -123,7 +265,7 @@ else
    echo "<b> Year of Opening::</b><i class=query_values >".$_POST['yop']."</i>";
   }
 echo "</p>";
-$arr=array($_POST['clg_name'] , $_POST['clg_id'] , $_POST['clg_director'] , $_POST['yop'] , $_POST['city'] , $_POST['state'] , $_POST['pincode'] );
+$arr=array($_POST['clg_name'] , $_POST['clg_shrt_name'] , $_POST['clg_director'] , $_POST['yop'] , $_POST['city'] , $_POST['state'] , $_POST['pincode'] );
 
 $f=1;
 $err=1;
@@ -152,7 +294,7 @@ $coun=0;
 	   {
 	    $query.=" AND ";
 	   }
-	  $query.=" id='$arr[1]' ";
+	  $query.=" shrt_name='$arr[1]' ";
 	  	  $count=1;
 	 }
 	if($arr[2]!=-1)
@@ -208,18 +350,18 @@ $coun=0;
 	  $err=0;
 	  if($f==1)
 	   {
-	  echo '<tr align=center ><th>Select</th><th>Sno.</th><th>Name</th><th>Code</th><th>Stream</th><th>Modify</th></tr>';
+	  echo '<tr align=center ><th>#</th><th>Name</th><th>Code</th><th>Stream</th><th>Modify</th></tr>';
 	   $f=0;
 	   }
 	  $coun++;
-	  echo '<tr id='.$rows[id].'><td align=center ><input type=checkbox name='.$rows[id].' value='.$rows[id].' onclick=return(clg_select();) /></td><td>'.$coun.'</td><td>'.$rows[name].'</td><td>'.$rows[id].'</td><td>';
+	  echo '<tr id='.$rows[id].'><td>'.$coun.'</td><td>'.$rows[name].'</td><td>'.$rows[shrt_name].'</td><td>';
 	  if($rows[engineering]==1)
 	   echo 'Engineering ';
 	  if($rows[medical]==1)
 	   echo 'Medical ';
 	  if($rows[management]==1)
 	   echo 'Management.';
-	  echo '</td><td><a target="_blank" href=modify_college.php?c='.$rows[id].' style="color:white;"><big><u><b>Details</b></u></big></a></td></tr>';
+	  echo '</td><td><a target="_blank" href=modify_college.php?c='.$rows[ap_id].' style="color:white;"><big><u><b>Details</b></u></big></a></td></tr>';
 	 }
 	 echo '</table></center><br />';
 	}

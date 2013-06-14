@@ -2,6 +2,9 @@
 include("header.php");
 ?>
 <?php
+ echo '<script>
+onload=high(0);
+</script>';
 echo '<div id=page_container><div id=content>';
 include("side_menu.php");
 echo '<div id=article>';
@@ -22,7 +25,7 @@ else
  echo '<h2>All Colleges</h2>';
 }
 echo '<p>Please choose the options accordingly to reach the appropriate college. Select one or more choices to filter the colleges more precisely.</p><br />';
-search_form("normal",$_GET['stream']);
+search_form($_GET['stream'],$_GET['stream']);
 $query_success=0;
 if(isset($_POST['sub']))
 {
@@ -32,9 +35,9 @@ if(isset($_POST['sub']))
    echo "<b>College::</b><i class=query_values >".$_POST['clg_name']."</i>";
    $query_success=1;
   }
- if($_POST['clg_id']!=-1)
+ if($_POST['clg_shrt_name']!=-1)
   {
-   echo "<b> College Code::</b><i class=query_values >".$_POST['clg_id']."</i>";
+   echo "<b> Short Name::</b><i class=query_values >".$_POST['clg_shrt_name']."</i>";
    $query_success=1;
   }
  if($_POST['clg_director']!=-1)
@@ -63,13 +66,13 @@ if(isset($_POST['sub']))
   }
  if($_POST['yop']!=-1)
   {
-   echo "<b> Year of Opening::</b><i class=query_values >".$_POST['yop']."</i>";
+   echo "<b> Established year::</b><i class=query_values >".$_POST['yop']."</i>";
    $query_success=1;
   }
 if($query_success==1)
  echo "</p>";
  
-$arr=array($_POST['clg_name'] , $_POST['clg_id'] , $_POST['clg_director'] , $_POST['yop'] , $_POST['city'] , $_POST['state'] , $_POST['pincode'] );
+$arr=array($_POST['clg_name'] , $_POST['clg_shrt_name'] , $_POST['clg_director'] , $_POST['yop'] , $_POST['city'] , $_POST['state'] , $_POST['pincode'] );
 
 $f=1;
 $err=1;
@@ -98,7 +101,7 @@ $coun=0;
 	   {
 	    $query.=" AND ";
 	   }
-	  $query.=" id='$arr[1]' ";
+	  $query.=" shrt_name='$arr[1]' ";
 	  	  $count=1;
 	 }
 	if($arr[2]!=-1)
@@ -189,22 +192,15 @@ if($res_count!=0)
 		  if($res_count>=2)
 		   echo '<th>*</th>';
 		   
-		  echo '<th>#</th><th>Name</th><th>Code</th><th>Stream</th><th>More</th></tr>';
+		  echo '<th>#</th><th>Name</th><th>Code</th><th>More</th></tr>';
 	   $f=0;
 	   }
 	  $coun++;
 	  echo '<tr id='.$rows[id].' >';
 	  if($res_count>=2)
-	   echo '<td><input type=checkbox id=c name=c value='.$r[id].' onclick=return(check_two(this)) /></td>';
+	   echo '<td><input type=checkbox id=c name=c value='.$rows[ap_id].' onclick=return(check_two(this)) /></td>';
 	   
-	   echo '<td>'.$coun.'</td><td>'.$rows[name].'</td><td>'.$rows[id].'</td><td>';
-	  if($rows[engineering]==1)
-	   echo 'Engineering ';
-	  if($rows[medical]==1)
-	   echo 'Medical ';
-	  if($rows[management]==1)
-	   echo 'Management.';
-	  echo '</td><td><a target="_blank" href=view_college.php?c1='.$rows[id].' style="color:white;"><u><b color=white ><big>Details</big></b></u></a></td></tr>';
+	   echo '<td>'.$coun.'</td><td>'.$rows[name].'</td><td>'.$rows[coll_code].'</td><td><a target="_blank" href=view_college.php?c1='.$rows[ap_id].' style="color:white;"><u><b color=white ><big>Details</big></b></u></a></td></tr>';
 	 }
 	 if($err==0)
 	  {

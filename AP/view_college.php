@@ -8,34 +8,23 @@ echo '<div id=article>';
 echo '<div id=view_college>';
 echo '<p class=success align=center >College Details</p>';
 echo '<table name=college_view class=college_view cellspacing=10 cellpadding=3 border=1 >';
-mysql_query("UPDATE `college_info` SET views=views+1 WHERE id='$_GET[c1]'  ");
-$select=mysql_query("SELECT * from college_info WHERE id='$_GET[c1]' ");
+mysql_query("UPDATE `college_info` SET views=views+1 WHERE ap_id='$_GET[c1]'  ");
+$select=mysql_query("SELECT * from college_info WHERE ap_id='$_GET[c1]' ");
 while($row=mysql_fetch_array($select))
  {
-  echo '<tr><td class=left >Name:</td><td>'.$row[name].'</td></tr>';
-  echo '<tr><td class=left >College code:</td><td>'.$row[id].'</td></tr>';
-  echo '<tr><td class=left >Director:</td><td>'.$row[director].'</td></tr>';
-  echo '<tr><td class=left >College Logo:</td><td><img width=50 height=50 src="logos/'.$row[id].'.png" title='.$row[id].' alt='.$row[id].'/></td></tr>';
-  echo '<tr><td class=left >Year of Opening:</td><td>'.$row[year_of_opening].'</td></tr>';
-
-  echo '<tr><td class=left >Streams:</td><td>';
-  if($row[engineering])
-   {
-  echo 'Engineering';
-   }
-  if($row[medical])
-   {
-    echo ' Medical';
-   }
-  if($row[management])
-   {
-    echo ' Management';
-   }
-   echo '</td></tr>';
-
+  echo '<tr><td colspan=2 style="background-color:grey;color:white;"><b>Basic Information</b></td></tr>';
+  echo '<tr><td class=left_e >Name:</td><td>'.$row[name].'</td></tr>';
+  echo '<tr><td class=left_e >Short Name:</td><td>'.$row[shrt_name].'</td></tr>';
+  echo '<tr><td class=left_e >College code:</td><td>'.$row[coll_code].'</td></tr>';
+  echo '<tr><td class=left_e >Director:</td><td>'.$row[director].'</td></tr>';
+  echo '<tr><td class=left_e >College Logo:</td><td><img width=100 height=100 src="logos/'.$row[ap_id].'.png" title='.$row[ap_id].' alt='.$row[ap_id].'/></td></tr>';
+  echo '<tr><td class=left_e >Establishment Year:</td><td>'.$row[year_of_opening].'</td></tr>';
+  echo '<tr><td class=left >Affiliated to:</td><td>'.$row[affiliated].'</td></tr>';
+   echo '<tr><td class=left >Category:</td><td>'.$row[category].'</td></tr>';
+   echo '<tr><td class=left >Type:</td><td>'.$row[type].'</td></tr>';
 
    
-  echo '<tr><td class=left >Amenities:</td><td><table><tr><td>';
+  echo '<tr><td class=left_e >Amenities:</td><td><table><tr><td>';
   if($row[auditorium])
    {
   echo '<td><label for="audit"><span id=auditorium title=AUDITORIUM></span></label></td>';
@@ -74,7 +63,7 @@ while($row=mysql_fetch_array($select))
    }
    echo '</td></tr></table></td></tr>';
   
-  echo '<tr><td class=left >Students Intake:</td><td>';
+  echo '<tr><td class=left_e >Students Intake:</td><td>';
   if($row[intake]==90)
    {
     echo '10-100';
@@ -88,36 +77,60 @@ while($row=mysql_fetch_array($select))
    else
     echo 'above 1000';
 	echo ' students</td></tr>';
-  echo '<tr><td class=left >Address:</td><td>'.$row[address].'</td></tr>';
-  echo '<tr><td class=left >City:</td><td>'.$row[city].'</td></tr>';
+	
+  echo '<tr style="background-color:grey;color:white;" id=cou_plus ><td colspan=2 ><img src="images/down.png" id=cou_img height=23 width=23 />&nbsp;&nbsp;<b style="vertical-align:top;" >Course Details</b></td></tr>';
+  echo '<tr class=cou ><td colspan=2 ><table><tr>';
+  if($row[engineering])
+   {
+  echo '<td class=courses ><b><u>Engineering</u></b><br />';
+  echo '<font class=course_details >'.$row[eng_courses].'</font>';
+  echo '</td>';
+   }
+  if($row[medical])
+   {
+  echo '<td class=courses ><b><u>Medical</u></b><br /><font class=course_details >'.$row[man_courses].'</font></td>';
+   }
+  if($row[management])
+   {
+  echo '<td class=courses ><b><u>Management</u></b><br /><font class=course_details >'.$row[man_courses].'</font></td>';
+   }
+   echo '</tr></table></td></tr>';
+
+   
+   
+	
+  echo '<tr style="background-color:grey;color:white;" id=con_plus ><td colspan=2 ><img src="images/down.png" id=con_img height=23 width=23 />&nbsp;&nbsp;<b style="vertical-align:top;" >Contact Details</b></td></tr>';
+  echo '<tr  class=con  ><td class=left_e >Address:</td><td>'.$row[address].'</td></tr>';
+  echo '<tr  class=con ><td class=left_e >City:</td><td>'.$row[city].'</td></tr>';
   $sel=mysql_query("SELECT * from states WHERE Sno='$row[state]' ");
   while($r=mysql_fetch_array($sel))
    {
-  echo '<tr><td class=left >State:</td><td>'.$r[state].'</td></tr>';
+  echo '<tr class=con ><td class=left_e >State:</td><td>'.$r[state].'</td></tr>';
    }
-  echo '<tr><td class=left >Pincode:</td><td>'.$row[pincode].'</td></tr>';
-  echo '<tr><td class=left >Contact:</td><td>+91 - ('.substr($row[phone],0,2).') - '.substr($row[phone],2,strlen($row[phone])).'</td></tr>';
+  echo '<tr class=con ><td class=left_e >Pincode:</td><td>'.$row[pincode].'</td></tr>';
+  echo '<tr class=con ><td class=left_e >Contact:</td><td>+91 - ('.substr($row[phone],0,2).') - '.substr($row[phone],2,strlen($row[phone])).'</td></tr>';
   if($row[fax]!="")
    {
-  echo '<tr><td class=left >Fax:</td><td>+91 - ('.substr($row[fax],0,2).') - '.substr($row[fax],2,strlen($row[fax])).'</td></tr>';
+  echo '<tr class=con ><td class=left_e >Fax:</td><td>+91 - ('.substr($row[fax],0,2).') - '.substr($row[fax],2,strlen($row[fax])).'</td></tr>';
    }
   if($row[train]!="")
    {
-  echo '<tr><td class=left >Nearest Railway Station:</td><td>'.$row[train].'</td></tr>';
+  echo '<tr class=con ><td class=left_e >Nearest Railway Station:</td><td>'.$row[train].'</td></tr>';
   }
-  echo '<tr><td class=left >Nearest Bus Station:</td><td>'.$row[bus].'</td></tr>';
-  echo '<tr><td class=left >Email:</td><td><a href=mailto:'.$row[email].' target="_blank"  title='.$row[email].' alt=.'.$row[id].' >'.$row[email].'</a></td></tr>';
+  echo '<tr class=con ><td class=left_e >Nearest Bus Station:</td><td>'.$row[bus].'</td></tr>';
+  echo '<tr class=con ><td class=left_e >Email:</td><td><a href=mailto:'.$row[email].' target="_blank"  title='.$row[email].' alt=.'.$row[ap_id].' >'.$row[email].'</a></td></tr>';
   if($row[website]!="")
    {
-  echo '<tr><td class=left >Website:</td><td><a href='.$row[website].' target="_blank" alt='.$row[id].' title='.$row[id].' >'.$row[website].'</td></tr>';
+  echo '<tr class=con ><td class=left_e >Website:</td><td><a href='.$row[website].' target="_blank" alt='.$row[id].' title="'.$row[ap_id].'" >'.$row[website].'</a></td></tr>';
    }
-  echo '<tr><td class=left >Views:</td><td>'.$row[views].'</td></tr>';
-  echo '<tr><td class=left >Rank:</td><td>'.$row[rank].'</td></tr>';
-
+  echo '<tr><td colspan=2  style="background-color:grey;color:white;"><b>Site Information</b></td></tr>';
+  echo '<tr><td class=left_e >Views:</td><td>'.$row[views].'</td></tr>';
+  echo '<tr><td class=left_e >Rank:</td><td>'.$row[rank].'</td></tr>';
+  echo '</div>';
  }
 echo '</table>';
 echo '</div><br />';
-go_top();
+feedback();
 echo '</div></div></div>';
 ?>
 <?php

@@ -84,7 +84,7 @@ if($res_count!=0)
  }
 else
 {
- echo '<p class=error ><img src="images/sad.png" title=sorry width=30 height=30 />&nbsp;&nbsp;No results found!!!</p>';
+ echo '<p class=error ><img src="images/sad.png" title=sorry width=30 height=30 />&nbsp;&nbsp;No results found!!!</p><br /><br /><br />';
 }
 echo '<table class=search_results cellpadding=8 >';
 $count=0;
@@ -110,11 +110,11 @@ while($r=mysql_fetch_array($s))
 	   $f=0;
 	   }
 	  $count++;
-	  echo '<tr id='.$r[id].' >';
+	  echo '<tr id='.$r[ap_id].' >';
 	  if($res_count>=2)
-	   echo '<td><input type=checkbox id=c name=c value='.$r[id].' onclick=return(check_two(this)) /></td>';
+	   echo '<td><input type=checkbox id=c name=c value='.$r[ap_id].' onclick=return(check_two(this)) /></td>';
 	   
-	   echo '<td>'.$count.'</td><td>'.$r[name].'</td><td>'.$r[id].'</td>';
+	   echo '<td>'.$count.'</td><td>'.$r[name].'</td><td>'.$r[coll_code].'</td>';
 	  if($_GET['stream']=="most_viewed")
 	   {
 	    echo '<td>'.$r[views].'</td>';
@@ -123,7 +123,7 @@ while($r=mysql_fetch_array($s))
 	   {
 	    echo '<td>'.$r[rank].'</td>';
 	   }
-	  echo '<td><a target="_blank" href=view_college.php?c1='.$r[id].' style="color:white;" ><u><b color=white ><big>Details</big></b></u></a></td></tr>';
+	  echo '<td><a target="_blank" href=view_college.php?c1='.$r[ap_id].' style="color:white;" ><u><b color=white ><big>Details</big></b></u></a></td></tr>';
  }
 
 echo '</table><br />';

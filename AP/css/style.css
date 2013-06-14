@@ -8,9 +8,9 @@ body
 h1,h2,h3,h4,h5,h6
 {
  margin: 0;
- padding-left: 10px;
  color: black;
 }
+textarea{max-width: 300px; max-height: 100px;}
 a,a:hover,a:active,a:focus
 {
  margin:0;
@@ -243,13 +243,14 @@ width: 965px;
 {
  height: 32px;
 }
-.left
+.left,.left_e
 {
  font-size: 20px;
  padding: 0 10px 0 0;
  color: #0072a6;
  text-align: right;
  vertical-align: top;
+ width: 320px;
 }
 .right
 {
@@ -398,7 +399,7 @@ width: 665px;
 {
  width: 190px;
 }
-#compare
+#compare,#close
 {
  background-color: green;
  color: white;
@@ -409,6 +410,57 @@ width: 665px;
  text-align: center;
  margin: 0 auto;
 }
+#close
+{
+ background-color: red;
+ width:50px;
+ float:right;
+}
+#engg, #medic, #manage
+{
+ display: none;
+ width: 50px;
+}
+#reg_table/*table in registration form*/
+{
+ width: 1000px;
+ margin-left: -40px;
+}
+.left_e
+{
+ width: 200px;
+}
+.courses
+{
+ text-align: left;
+ font-size: 13px;
+}
+#view_college
+{
+ margin-left: 10px;
+}
+#comparision td
+{
+ vertical-align: top;
+}
+.con, .cou
+{
+ display: none;
+}
+.course_details
+{
+ font-family: Tahoma;
+ color:#dd4d00;
+}
+.remove_style
+{
+ font-family: Tahoma;
+}
+.cp, .star
+{
+display: none;
+}
+
 /*FOOTER DETAILS///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 #footer
 {
@@ -420,6 +472,7 @@ width: 665px;
  color: black;
 /*   border: 1px solid green;*/
 }
+
 /*FOOTER DETAILS///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 
