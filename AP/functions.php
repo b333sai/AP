@@ -71,25 +71,24 @@ if($row[management])
  {
   echo "checked";
  } 
- echo '/><label for="stream3">Management</label></td>
-</tr>';
+ echo '/><label for="stream3">Management</label></td></tr>';
 
-echo '<tr><td></td><td><table><tr>';
-echo '<td id=engg ><select name="engineering[ ]" id=engineering style="width:180px" multiple>';
+echo '<tr><td></td><td class="right" ><table id="courses_table" ><tr>';
+echo '<td id=engg><select name="engineering[ ]" id=engineering  style="width: 200px;" multiple>';
 $select=mysql_query("SELECT * from courses WHERE stream=1 ");
 while($rows=mysql_fetch_array($select))
  {
   echo '<option value="'.$rows[course].'" title="'.$rows[course].'" >'.$rows[course].'</option>';
  }
 echo '</select></td>';
-echo '<td id=medic ><select name="medical[ ]"  id=medicl style=" width:180px;" multiple>';
+echo '<td  id=medic ><select name="medical[ ]"  style="width: 200px;"  id=medicl multiple>';
 $select=mysql_query("SELECT * from courses WHERE stream=2 ");
 while($rows=mysql_fetch_array($select))
  {
   echo '<option  value="'.$rows[course]. '" title="'.$rows[course].'" >'.$rows[course].'</option>';
  }
 echo '</select></td>';
-echo '<td id=manage ><select name="management [ ]"  id=management style=" width:180px;" multiple>';
+echo '<td id=manage ><select name="management [ ]"  style="width: 200px;"  id=management  multiple>';
 $select=mysql_query("SELECT * from courses WHERE stream=3 ");
 while($rows=mysql_fetch_array($select))
  {
@@ -99,7 +98,7 @@ echo '</select></td>';
 echo '</tr></table></td></tr>';
 
 
-echo '<tr><td class=left >Affiliated to:</td><td class=right ><input type=text name=affiliated  placeholder="'.$row[affiliated].'" /></td></tr>';
+echo '<tr><td class=left >Affiliated to:</td><td class=right ><input class=right type=text name=affiliated  placeholder="'.$row[affiliated].'" /></td></tr>';
 echo '<tr><td class=left >Category:</td><td class=right ><select name=category ><option value=-1 >--select--</option><option value="Mens College" ';
 if($row[category]=="Mens College")
  echo 'selected ';
@@ -238,21 +237,18 @@ if($row[intake]==1000)
 </select></td></tr>';
 
 
-echo '<tr><td align=right  class=left >Address:</td><td align=left  class=right ><textarea rows=3 columns=6 id=addr name=coll_address class=right placeholder="'.$row[address].'" ></textarea></td></tr>';
-
-
-echo '<tr><td align=right  class=left >City:</td><td align=left  class=right ><input type=text name=city  class=right size='.(strlen($row[city])).' placeholder="'.$row[city].'" /></td></tr>';
+echo '<tr><td align=right  class=left >Address:</td><td align=left  class=right ><textarea rows=6 cols=30 id=addr name=coll_address class=right placeholder="'.$row[address].'" ></textarea></td></tr>';
 
 echo '<tr><td align=right  class=left >State:</td><td align=left  class=right >
-<select name=state ><option value=-1  id=right >select</option>';
-$result=mysql_query("SELECT * from states ");
+<select name=state ><option value=-1  id=right >--SELECT--</option>';
+$result=mysql_query("SELECT DISTINCT state from cities ORDER BY state");
 $p=1;
 while($r=mysql_fetch_array($result))
 {
- $len=strlen($row[state]);
- $f=substr($row[state],0,2);
- $l=substr($row[state],$len-2,2);
- $name=$f.$l;
+ //$len=strlen($row[state]);
+ //$f=substr($row[state],0,2);
+ //$l=substr($row[state],$len-2,2);
+ //$name=$f.$l;
  echo "<option name=state class=right value=".$p." ";
  if($row[state]==$p)
   {
@@ -264,12 +260,31 @@ while($r=mysql_fetch_array($result))
 echo '</select></td></tr>';
 
 
+echo '<tr><td align=right  class=left >City:</td><td align=left  class=right >
+<select name=city ><option value=-1  id=right >--SELECT--</option>';
+$result=mysql_query("SELECT DISTINCT city from cities ORDER BY city");
+while($r=mysql_fetch_array($result))
+{
+ //$len=strlen($row[city]);
+ //$f=substr($row[state],0,2);
+ //$l=substr($row[state],$len-2,2);
+ //$name=$f.$l;
+ echo "<option name=city class=right value=".$p." ";
+ if($row[city]==$r[city])
+  {
+   echo 'selected';
+  }
+  echo ">".$r[city]."</option>";
+}
+echo '</select></td></tr>';
+
+
 
 echo '<tr><td align=right  class=left >Pincode:</td><td align=left  class=right ><input type=text name=pincode  class=right size=6 maxlength=6 placeholder="'.$row[pincode].'" /></td></tr>';
 
-echo '<tr><td align=right  class=left >Contact:</td><td align=left  class=right >+91 - (<input type=text name=contact  class=right size=1  maxlength=2 placeholder="'.substr($row[phone],0,2).'" />) - <input type=text name=contact2 class=right size=8 maxlength=8 placeholder="'.substr($row[phone],2,(strlen($row[phone])-2)).'" /></td></tr>';
+echo '<tr><td align=right  class=left >Contact:</td><td align=left  class=right >+91 - (<input type=text name=contact  class=right id="two_digit"  maxlength=2 placeholder="'.substr($row[phone],0,2).'" />) - <input type=text name=contact2 class=right size=6 maxlength=8 placeholder="'.substr($row[phone],2,(strlen($row[phone])-2)).'" /></td></tr>';
 
-echo '<tr><td align=right  class=left >Fax:</td><td align=left  class=right >+91 - (<input type=text name=fax  class=right size=1  maxlength=2 placeholder="'.substr($row[fax],0,2).'" />) - <input type=text name=fax2 class=right size=8 maxlength=8 placeholder="'.substr($row[fax],2,(strlen($row[fax])-2)).'" /></td></tr>';
+echo '<tr><td align=right  class=left >Fax:</td><td align=left  class=right >+91 - (<input type=text name=fax  class=right id="two_digit"  maxlength=2 placeholder="'.substr($row[fax],0,2).'" />) - <input type=text name=fax2 class=right size=6 maxlength=8 placeholder="'.substr($row[fax],2,(strlen($row[fax])-2)).'" /></td></tr>';
 
 
 echo '<tr><td align=right  class=left >Nearest Railway station:</td><td align=left  class=right ><input type=text name=train  class=right size='.(strlen($row[train])).' placeholder="'.$row[train].'" /></td></tr>';
@@ -309,11 +324,11 @@ echo '<tr ><td colspan=2><hr width=900 /></td></tr>';
 
 
 echo '<tr><td align=center ><span id=compare class="left change_pass" >Change password</span></td><td align=right ><span id=close class="cp left" onclick="close_pass()" >Close</span></td></tr>';
-echo '<tr><td align=right  class="left cp"  >Current Password:</td><td class="right cp"  ><input type=password name=crpass maxlength=15 id=crpassword /></td></tr>';
+echo '<tr><td align=right  class="left"  ><span class="cp" >Current Password:</span></td><td class="right cp"  ><input type=password class=cp name=crpass maxlength=15 id=crpassword /></td></tr>';
 
-echo '<tr><td align=right  class="left cp"  >New Password:</td><td class="right cp"  ><input type=password name=npass maxlength=15 id=password /><span class=note > (length should lie between 9 and 15)</span></td></tr>';
+echo '<tr><td align=right  class="left"  ><span class="cp" >New Password:</span></td><td class="right "  ><input type=password class=cp name=npass maxlength=15 id=password /><span class="note cp" > (length should lie between 9 and 15)</span></td></tr>';
 
-echo '<tr><td class="left cp" >Confirm New Password:</td><td  class="right cp"  ><input type=password name=cnpass id=cpassword maxlength=15 /></td></tr>';
+echo '<tr><td class="left cp" ><span class="cp" >Confirm New Password:</span></td><td  class="right"  ><input type=password name=cnpass id=cpassword class=cp maxlength=15 /></td></tr>';
 
 
 echo '<tr><td><br /></td><td align=left ><br /><input type=submit name=submit  id=submit value=Submit /><input type=reset name=reset value=Reset id=reset align=right /></td></tr>';
@@ -358,7 +373,7 @@ echo '</select></td>';
 echo '</tr></table></td></tr>';
 
 
-echo '<tr><td class=left ><font color=red >*</font>Affiliated to:</td><td class=right ><input type=text name=affiliated  required/></td></tr>';
+echo '<tr><td class=left ><font color=red >*</font>Affiliated to:</td><td class=right ><input type=text name=affiliated class=right required/></td></tr>';
 echo '<tr><td class=left ><font color=red >*</font>Category:</td><td class=right ><select name=category ><option value=-1 >--select--</option><option value="Mens College" >Mens</option><option value="Womens College">Womens</option><option value="Co-Education College" >Co-Education</option></select></td></tr>';
 echo '<tr><td class=left ><font color=red >*</font>Type:</td><td class=right ><select name=type><option value=-1 >--select--</option><option value="Government">Government</option><option value="Private" >Private</option></select></td></tr>';
 echo '<tr><td align=right  class=left ><font color=red>*</font>Amenities:</td>
@@ -400,31 +415,38 @@ echo '<tr><td align=right  class=left ><font color=red>*</font>Student intake:</
 <option value=500  class=right >500-1000</option>
 <option value=1000  class=right >above 1000</option>
 </select></td></tr>';
-echo '<tr><td align=right  class=left ><font color=red>*</font>Address:</td><td align=left  class=right ><textarea rows=3 columns=6 id=addr name=coll_address class=right   required></textarea></td></tr>';
-
-
-echo '<tr><td align=right  class=left ><font color=red>*</font>City:</td><td align=left  class=right ><input type=text name=city  class=right size=20    required/></td></tr>';
+echo '<tr><td align=right  class=left ><font color=red>*</font>Address:</td><td align=left  class=right ><textarea rows=6 cols=30 id=addr name=coll_address class=right ></textarea></td></tr>';
 
 echo '<tr><td align=right  class=left ><font color=red>*</font>State:</td><td align=left  class=right >
-<select name=state ><option value=-1  id=right required>select</option>';
-$result=mysql_query("SELECT * from states ");
-$p=1;
-while($row=mysql_fetch_array($result))
+<select name=state ><option value=-1  id=right >--SELECT--</option>';
+$result=mysql_query("SELECT DISTINCT state from cities ORDER BY state");
+while($r=mysql_fetch_array($result))
 {
- $len=strlen($row[state]);
- $f=substr($row[state],0,2);
- $l=substr($row[state],$len-2,2);
- $name=$f.$l;
- echo "<option class=right value=".$p." >".$row[state]."</option>";
- $p++;
+ //$len=strlen($row[state]);
+ //$f=substr($row[state],0,2);
+ //$l=substr($row[state],$len-2,2);
+ //$name=$f.$l;
+ echo "<option name=state class=right value=".$p." ";
+  echo ">".$r[state]."</option>";
 }
 echo '</select></td></tr>';
 
-echo '<tr><td align=right  class=left ><font color=red>*</font>Pincode:</td><td align=left  class=right ><input type=text name=pincode  class=right size=6 maxlength=6 required/></td></tr>';
 
-echo '<tr><td align=right  class=left ><font color=red>*</font>Contact:</td><td align=left  class=right >+91 - (<input type=text name=contact  class=right size=1  maxlength=2 required/>) - <input type=text name=contact2 class=right size=8 maxlength=8 required/></td></tr>';
+echo '<tr><td align=right  class=left ><font color=red>*</font>City:</td><td align=left  class=right >
+<select name=city ><option value=-1  id=right >--SELECT--</option>';
+$result=mysql_query("SELECT DISTINCT city from cities ORDER BY city");
+while($r=mysql_fetch_array($result))
+{
+ echo "<option name=city class=right value=".$p." ";
+ echo ">".$r[city]."</option>";
+}
+echo '</select></td></tr>';
 
-echo '<tr><td align=right  class=left >Fax:</td><td align=left  class=right >+91 - (<input type=text name=fax  class=right size=1  maxlength=2 />) - <input type=text name=fax2 class=right size=8 maxlength=8 /></td></tr>';
+echo '<tr><td align=right  class=left ><font color=red>*</font>Pincode:</td><td align=left  class=right ><input type=text name=pincode  class=right size=3 maxlength=6 required/></td></tr>';
+
+echo '<tr><td align=right  class=left ><font color=red>*</font>Contact:</td><td align=left  class=right >+91 - (<input type=text name=contact  id=two_digit  class=right  maxlength=2 required/>) - <input type=text name=contact2 class=right size=6 maxlength=8 required/></td></tr>';
+
+echo '<tr><td align=right  class=left >Fax:</td><td align=left  class=right >+91 - (<input type=text name=fax  class=right id=two_digit  maxlength=2 />) - <input type=text name=fax2 class=right size=6 maxlength=8 /></td></tr>';
 
 
 echo '<tr><td align=right  class=left >Nearest Railway station:</td><td align=left  class=right ><input type=text name=train  class=right size=20  /></td></tr>';
@@ -432,7 +454,7 @@ echo '<tr><td align=right  class=left >Nearest Railway station:</td><td align=le
 echo '<tr><td align=right  class=left ><font color=red>*</font>Nearest Bus Station:</td><td align=left  class=right ><input type=text name=bus  class=right size=20    required/></td></tr>';
 
 
-echo '<tr><td align=right  class=left ><font color=red>*</font>Email:</td><td align=left  class=right ><input type=email name=emailid  class=right size=20   required/></td></tr>';
+echo '<tr><td align=right  class=left ><font color=red>*</font>Email:</td><td align=left  class=right ><input type=email name=emailid  class=right size=20  required/></td></tr>';
 
 echo '<tr><td align=right  class=left >Website:</td><td align=left ><input type=url name=website class=right  size=20 /><font color=grey >(Ex: http://www.google.com)</font> </td></tr>';
 
@@ -456,8 +478,12 @@ echo '<tr><td align=right  class=left ><font color=red>*</font>Name of the Direc
 
 echo '<tr ><td colspan=2><hr width=900 /></td></tr>';
 
-echo '<tr><td align=right  class=left ><font color=red>*</font>Password:</td><td class=right ><input type=password name=pass maxlength=15 id=password required/><span class=note > (length should lie between 9 and 15)</span></td></tr>';
-echo '<tr><td class=left ><font color=red>*</font>Confirm Password:</td><td class=right ><input type=password name=cpass id=cpassword maxlength=15 required/></td></tr>';
+
+echo '<tr><td class=left ><font color=red>*</font> Username:</td><td class=right ><input type=text name=username id=user_id required/></td></tr>';
+
+
+echo '<tr><td align=right  class=left ><font color=red>*</font>Password:</td><td class=right ><input type=password name=pass maxlength=15 id=password onkeyup="reg_validate_password(pass,cpass,reg_p_warning,c_h_warning,match_image)"  onfocus="reg_validate_password(pass,cpass,reg_p_warning,c_h_warning,match_image)"  onchange="reg_validate_password(pass,cpass,reg_p_warning,c_h_warning,match_image)" required/><span id=reg_p_warning > (length should lie between 9 and 15)</span></td></tr>';
+echo '<tr><td class=left ><font color=red>*</font>Confirm Password:</td><td class=right ><input type=password name=cpass id=cpassword maxlength=15 onkeyup="confirm_password(cpass,pass,c_h_warning,match_image)"  onfocus="confirm_password(cpass,pass,c_h_warning,match_image)" onchange="confirm_password(cpass,pass,c_h_warning,match_image)"required/><span id=c_h_warning > Passwords doesn\'t match!!!</span><img src="images/correct.png" valign=middle width=24 height=24 id=match_image style="display:none;" /></td></tr>';
 
 echo '<tr><td><input type=hidden name=app_no value='.$app_no.' /></td></tr>';
 echo '<tr><td><br /></td><td align=left ><br /><input type=submit name=submit  id=submit value=Submit /><input type=reset name=reset value=Reset id=reset align=right /></td></tr>';
@@ -472,6 +498,132 @@ function modify_college()
 {
  
 }
+function login_form($page_name)
+{
+ echo '<div align=right  ><span id=login_box style="position:absolute;right:0px;top:10px;" ><a href="javascript:void(0);" onclick="hide_show_login(0)" style="display:block;" >Login</a></span><form action='.$page_name.' method=post name=form_login id=login_form onsubmit="return(check_login())" >
+ <div style="text-align:center;color:red;display:none;font-size: 15px;" id=login_error >Invalid username/password!!!</div>
+ 
+ <label>Username: <input type=text maxlength=26 name=username required/></label><br />
+ <label>Password: <input type=password maxlength=15 name=password onkeyup="validate_password(this,h_warning);"    required/></label><br /><span align=left id=h_warning style="color:red;display:none;font-size:15px;" >Invalid password</span><br />
+ 
+ <center><input type=submit name=login_submit style="font-size:20px;color:blue;"  value=Submit />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=button style="font-size:20px;color:red;" name=close id=close_login onclick="hide_show_login(0)" value=Cancel /></center>
+ </form>
+</div>';
+}
+function logout_form()
+{
+ echo '<div align=right style="position:absolute;right:0px;top:10px;color:green;" ><span style="color:green;" >'.$_SESSION['uid'].'<div ><form action=index.php method=post ><input type=submit name=logout value=Logout /></form></div></div>';
+}
+function header_content()
+{
+session_start();
+include("header.php");
+$pageName = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+if(isset($_POST['login_submit']))
+   {
+    //echo '<script>window.location="'.$_POST['p_name'].'";</script>';
+    $pass=md5($_POST['password']);
+	$s1=mysql_query("SELECT username FROM college_info WHERE username='$_POST[username]' and password='$pass'");
+	$exist=mysql_num_rows($s1);
+	if($exist>0)
+	 {
+	  $_SESSION['uid']=$_POST['username'];
+	   $tim=r_time_stamp(time());
+	   mysql_query("UPDATE `college_info` SET last_login='$tim' WHERE ap_id='$_POST[username]' and password='$pass' ");
+	  //echo '<script>$("#login_box").hide();</script>';
+	  $err=0;
+	 }
+	else
+	 {
+	  $s2=mysql_query("SELECT * FROM users WHERE username='$_POST[username]' and password='$pass' ");
+	  $exist=mysql_num_rows($s2);
+	if($exist>0)
+	 {
+	  $_SESSION['uid']=$_POST['username'];
+	  while($rs=mysql_fetch_array($s2))
+	   {
+	    $_SESSION['uname']=$rs['name'];
+	   }
+	   $tim=r_time_stamp(time());
+	   mysql_query("UPDATE `users` SET last_login='$tim' WHERE username='$_POST[username]' and password='$pass' ");
+	  //echo '<script>$("#login_box").hide();</script>';
+	  $err=0;
+	 }
+	  else
+	   {
+	  $err=1;
+	   }
+	 }
+   }
+   if(isset($_POST['logout']))
+    {
+	$tim=r_time_stamp(time());
+	  	   mysql_query("UPDATE `college_info` SET last_logout='$tim' WHERE ap_id='$_SESSION[uid]' ");
+		   mysql_query("UPDATE `users` SET last_logout='$tim' WHERE username='$_SESSION[uid]' ");
+	  session_destroy();
+	     login_form($pageName);
+	}
+  else if(isset($_SESSION['uid']))
+	  {
+	   logout_form();
+	  }
+ else
+  {
+	     login_form($pageName);
+  }
+  	if($err==1)
+	 {
+	  echo '<script>hide_show_login(1);</script>';
+	 }
+}
+
+function student_registration()
+{
+echo '<table id=student_registration cellpadding=5 cellspacing=5 >';
+echo '<form action=student_register.php name=s_register method=post onsubmit="return(validate_student_register());" >';
+echo '<tr><td class=s_left ><label for=st_name >Name:</label></td><td class=s_right ><input type=text name=s_name id=st_name size=30 placeholder="Your Nme...." required/></td></tr>';
+echo '<tr><td class=s_left ><label for=st_c_name >College Name:</label></td><td class=s_right ><input type=text name=s_c_name id=st_c_name size=50  placeholder="Your College Name...." required/></td></tr>';
+echo '<tr><td class=s_left ><label for=st_edu >Education:</label></td><td class=s_right ><input type=text name=s_edu id=st_edu size=30  placeholder="Your Education...." required/></td></tr>';
+echo '<tr><td class=s_left ><label for=st_email >Email:</td><td class=s_right ><input type=email name=s_email id=st_email size=30 onkeyup="validate_email(this,e_warning)"  placeholder="Your Email Id...." required/><span id="e_warning" style="color:red;display:none;font-size:15px;" >Invalid email!</span></td></tr>';
+
+//echo '<script>alert('.$COU.');</script>';
+//echo '<tr><td class=s_left ><label for=st_city >City:</td><td class=s_right ><input type=text name=s_city id=st_city size=20  placeholder="Your City...." required/></td></tr>';
+echo '<tr><td class=s_left >State:</td><td class=s_right >
+<select name=s_state ><option value=-1 >--SELECT--</option>';
+$result=mysql_query("SELECT DISTINCT state from cities ORDER BY state ");
+$p=1;
+while($r=mysql_fetch_array($result))
+{
+ $len=strlen($row[state]);
+ $f=substr($row[state],0,2);
+ $l=substr($row[state],$len-2,2);
+ $name=$f.$l;
+ echo "<option value=".$p."> $r[state]</option>";
+ $p++;
+}
+echo '</select></td></tr>';
+echo '<tr><td class=s_left ><label for=st_city >City:</label></td><td><select name=s_city id=st_city>';
+echo '<option value=-1>--SELECT--</option>';
+$citi=mysql_query("SELECT DISTINCT city FROM CITIES ORDER BY city");
+$COU=0;
+while($ct=mysql_fetch_array($citi))
+ {
+  echo '<option value='.$ct[city].'>'.$ct[city].'</option>';
+  $COU++;
+ }
+echo '</select></td>';
+
+echo '<tr ><td colspan=2  style="border-bottom: 1px dotted green;" ></td></tr>';
+echo '<tr><td class=s_left ><font color=red >*</font><label for=st_uname>Username:</td><td class=s_right ><input type=text name=s_uname id=st_uname  placeholder="Choose an easy one..." required/></td></tr>';
+echo '<tr><td class=s_left ><label for=st_pass ><font color=red >*</font>Password:</td><td class=s_right ><input type=password name=s_pass id=st_pass maxlength=15 onchange="reg_validate_password(this,s_cpass,reg_p_warning,c_h_warning,match_image);" onfocus="reg_validate_password(this,s_cpass,reg_p_warning,c_h_warning,match_image);"  onkeyup="reg_validate_password(this,s_cpass,reg_p_warning,c_h_warning,match_image);"  placeholder=" Ex: S@i9b.eoc" required/><span id=reg_p_warning > (length should lie between 9 and 15)</span></td></tr>';
+echo '<tr><td class=s_left ><label for=st_cpass ><font color=red >*</font>Confirm Password:</td><td class=s_right ><input type=password name=s_cpass maxlength=15 id=st_cpass  onchange="confirm_password(this,s_pass,c_h_warning,match_image);"        onfocus="confirm_password(this,s_pass,c_h_warning,match_image);"       onkeyup="confirm_password(this,s_pass,c_h_warning,match_image);" required/><span id=c_h_warning > Passwords doesn\'t match!!!</span><img src="images/correct.png" valign=middle width=24 height=24 id=match_image style="display:none;" /></td></tr>';
+echo '<tr><td></td></tr>';
+echo '<tr><td></td></tr>';
+echo '<tr><td colspan=2 ><input type=submit name=st_reg_submit  id=submit value=Submit style="margin-left: 150px;" /><input type=reset name=reset value=Reset id=reset onclick="javascript:$(\'#c_h_warning\').hide();$(\'#match_image\').hide();$(\'#reg_p_warning\').css(\'color\',\'#d7d7d7\');" /></td></tr>';
+echo '</form>';
+echo '</table>';
+echo '<br /><br /><br /><br />';
+}
 
 
 function select_branch()
@@ -482,11 +634,11 @@ function select_branch()
  <table id="table1" >
  
  <tr>
- <td id=choices ><label ><input type=radio name=stream id=stream1 onclick="change_loc(1);" />Engineering</label></td>
+ <td id=choices ><label ><input type=radio name=stream id=stream_1 onclick="change_loc(1);" />Engineering</label></td>
  
- <td id=choices ><label><input type=radio name=stream id=stream2 onclick="change_loc(2);" />Medical</label></td>
+ <td id=choices ><label><input type=radio name=stream id=stream_2 onclick="change_loc(2);" />Medical</label></td>
  
- <td id=choices ><label><input type=radio name=stream id=stream3 onclick="change_loc(3);" />Management</label></td>
+ <td id=choices ><label><input type=radio name=stream id=stream_3 onclick="change_loc(3);" />Management</label></td>
  
  </tr></table></div></center>';
 }
@@ -511,239 +663,174 @@ if($s!="0")
 }
 echo ' method=post name=csearch >';
  }
-echo '<tr>
-	  <td rowspan=7 valign=top ><input type=submit id=submit name=sub value=Search /></td>
-	  <td>by</td>
-	  <td colspan=5 >  
-	  <select name=clg_name title=COLLEGE ><option name=clg_name value=-1 >--college--</option>';
-	  $q="SELECT * from college_info ";
+ 
+      //queries for requesting the dropdown data
+ 	  $q_n="select distinct name from college_info";
+	  $q_c="select distinct city from college_info";
+	  $q_shrt="select distinct shrt_name from college_info";
+	  $q_d="select distinct director from college_info";
+	  $q_yoo="select distinct year_of_opening from college_info";
+	  $q_s="select distinct state from college_info";
+	  $q_p="select distinct pincode from college_info";
 	  if($v=="eng")
 	   {
-	    $q.=" WHERE engineering=1 ";
+	    $q_n.=" WHERE engineering=1 order by name";
+		$q_c.=" WHERE engineering=1 order by city";
+		$q_shrt.=" WHERE engineering=1 order by shrt_name";
+		$q_d.=" WHERE engineering=1 order by director";
+		$q_yoo.=" WHERE engineering=1 order by year_of_opening";
+		$q_s.=" WHERE engineering=1 order by state";
+		$q_p.=" WHERE engineering=1 order by pincode";
 	   }
 	  if($v=="med")
 	   {
-	    $q.=" WHERE medical=1 ";
+	    $q_n.=" WHERE medical=1 order by name";
+		$q_c.=" WHERE medical=1 order by city";
+		$q_shrt.=" WHERE medical=1 order by shrt_name";
+		$q_d.=" WHERE medical=1 order by director";
+		$q_yoo.=" WHERE medical=1 order by year_of_opening";
+		$q_s.=" WHERE medical=1 order by state";
+		$q_p.=" WHERE medical=1 order by pincode";
 	   }
 	  if($v=="man")
 	   {
-	    $q.=" WHERE management=1 ";
+	    $q_n.=" WHERE management=1 order by name";
+		$q_c.=" WHERE management=1 order by city";
+		$q_shrt.=" WHERE management=1 order by shrt_name";
+		$q_d.=" WHERE management=1 order by director";
+		$q_yoo.=" WHERE management=1 order by year_of_opening";
+		$q_s.=" WHERE management=1 order by state";
+		$q_p.=" WHERE management=1 order by pincode";
 	   }
-	  $s1=mysql_query($q);
-	  $arr1=array();
-	  $size=0;	  
+     //queries for requesting the dropdown data
+//javascript:alert(\'hai\');
+echo '
+      
+      <tr>
+	  <td rowspan=7 valign=top ><input type=submit id=submit name=sub value=Search /></td>
+	  <td>by</td>
+	  <td colspan=5 >  
+	  <select name=clg_name title=COLLEGE ><option name=clg_name value=-1  >--college--</option>';	   
+	  $s1=mysql_query($q_n);
 	  while($r1=mysql_fetch_array($s1))
 	   {
-	   $err=0;
-        for($i=0;$i<$size;$i++)
-		 {
-		  if($arr1[$i]==$r1[name])
-		   {
-		    $err=1;
-			break;
-		   }
-		 }
-		if($err==0)
-		 {
-		  $arr1[]=$r1[name];
-		  $size++;
-		 }
+	   echo '<option  name=clg_name value="'.$r1[name].'" >'.$r1[name].'</option>';
 	   }
-	   for($i=0;$i<$size;$i++)
-	    {
-	   	 echo '<option name=clg_name value="'.$arr1[$i].'" >'.$arr1[$i].'</option>';
-		}
 	  echo '</select>
 	  </td>
-	  </tr>
+	  </tr>';
 	  
-	  <tr>
+	  
+echo '<tr>
 	  <td>by</td>
 	  <td>  
-	  <select name=clg_shrt_name title="SHORT NAME" class=sel ><option value=-1 name=clg_shrt_name >--short name--</option>';
-	  $s1=mysql_query($q);
-	  $arr1=array();
-	  $size=0;	  
+	  <select  onchange="submit_form(csearch);" name=clg_shrt_name title="SHORT NAME" class=sel ><option value=-1 name=clg_shrt_name >--short name--</option>';
+	  $s1=mysql_query($q_shrt);  
 	  while($r1=mysql_fetch_array($s1))
 	   {
-	   $err=0;
-        for($i=0;$i<$size;$i++)
-		 {
-		  if($arr1[$i]==$r1[shrt_name])
-		   {
-		    $err=1;
-			break;
-		   }
-		 }
-		if($err==0)
-		 {
-		  $arr1[]=$r1[shrt_name];
-		  $size++;
-		 }
+	   echo '<option name=clg_shrt_name value="'.$r1[shrt_name].'" >'.$r1[shrt_name].'</option>';
 	   }
-	   for($i=0;$i<$size;$i++)
-	    {
-	   	 echo '<option name=clg_shrt_name value="'.$arr1[$i].'" >'.$arr1[$i].'</option>';
-		}
 	  echo '</select>
-	  </td>
+	  </td>';
+	  
+	  echo '
 	  <td>by</td>
 	  <td><select name=clg_director title=DIRECTOR  class=sel ><option value=-1>--director--</option>';
-	  $s1=mysql_query($q);
-	  $arr1=array();
-	  $size=0;	  
+	  $s1=mysql_query($q_d);
 	  while($r1=mysql_fetch_array($s1))
 	   {
-	   $err=0;
-        for($i=0;$i<$size;$i++)
-		 {
-		  if($arr1[$i]==$r1[director])
-		   {
-		    $err=1;
-			break;
-		   }
-		 }
-		if($err==0)
-		 {
-		  $arr1[]=$r1[director];
-		  $size++;
-		 }
+	    echo '<option name=clg_director value="'.$r1[director].'" >'.$r1[director].'</option>';
 	   }
-	   for($i=0;$i<$size;$i++)
-	    {
-	   	 echo '<option name=clg_director value="'.$arr1[$i].'" >'.$arr1[$i].'</option>';
-		}
 	  echo '</select>
-	  </td>
+	  </td>';
+	  
+	  
+	  echo '
 	  <td>by</td>
 	  <td><select name=yop title="YEAR OF OPENING" class=sel  ><option value=-1>--established year--</option>';
-	  $s1=mysql_query($q);
-	  $arr1=array();
-	  $size=0;	  
+	  $s1=mysql_query($q_yoo);  
 	  while($r1=mysql_fetch_array($s1))
 	   {
-	   $err=0;
-        for($i=0;$i<$size;$i++)
-		 {
-		  if($arr1[$i]==$r1[year_of_opening])
-		   {
-		    $err=1;
-			break;
-		   }
-		 }
-		if($err==0)
-		 {
-		  $arr1[]=$r1[year_of_opening];
-		  $size++;
-		 }
+	   	    echo '<option name=yop value="'.$r1[year_of_opening].'" >'.$r1[year_of_opening].'</option>';
 	   }
-	   for($i=0;$i<$size;$i++)
-	    {
-	   	 echo '<option name=yop value="'.$arr1[$i].'" >'.$arr1[$i].'</option>';
-		}
 	  echo '</select>
 	  </td>
-	  </tr>
+	  </tr>';
 	  
 	  
-	  <tr>
+echo '<tr>
 	  <td>by</td>
 	  <td>  
 	  <select name=city title=CITY  class=sel ><option value=-1>--city--</option>';
-	  $s1=mysql_query($q);
-	  $arr1=array();
-	  $size=0;	  
+	  $q_c="select distinct city from college_info";
+	  $s1=mysql_query($q_c);	  
 	  while($r1=mysql_fetch_array($s1))
 	   {
-	   $err=0;
-        for($i=0;$i<$size;$i++)
-		 {
-		  if($arr1[$i]==$r1[city])
-		   {
-		    $err=1;
-			break;
-		   }
-		 }
-		if($err==0)
-		 {
-		  $arr1[]=$r1[city];
-		  $size++;
-		 }
+	    echo '<option name=city value="'.$r1[city].'" >'.$r1[city].'</option>';
 	   }
-	   for($i=0;$i<$size;$i++)
-	    {
-	   	 echo '<option name=city value="'.$arr1[$i].'" >'.$arr1[$i].'</option>';
-		}
 	  echo '</select>
-	  </td>
-	  <td>by</td>
+	  </td>';
+	  
+	  echo '<td>by</td>
 	  <td><select name=state title=STATE  class=sel ><option value=-1>--state--</option>';
-	  $s1=mysql_query($q);
-	  $arr1=array();
-	  $size=0;	  
+	  $s1=mysql_query($q_s); 
 	  while($r1=mysql_fetch_array($s1))
 	   {
-	   $err=0;
-        for($i=0;$i<$size;$i++)
-		 {
-		  if($arr1[$i]==$r1[state])
-		   {
-		    $err=1;
-			break;
-		   }
-		 }
-		if($err==0)
-		 {
-		  $arr1[]=$r1[state];
-		  $size++;
-		 }
-	   }
-	   for($i=0;$i<$size;$i++)
-	    {
-	    $s2=mysql_query("SELECT * from states WHERE Sno='$arr1[$i]' ");
+	   	 $s2=mysql_query("SELECT state from states WHERE Sno='$r1[state]' ");
 		while($r2=mysql_fetch_array($s2))
 		 {		
-	   	 echo '<option name=state value="'.$arr1[$i].'" >'.$r2[state].'</option>';
-		 }
-		}
-	  echo '</select>
-	  </td>
-	  <td>by</td>
-	  <td><select name=pincode title=PINCODE  class=sel ><option value=-1>--pincode--</option>';
-	  $s1=mysql_query($q);
-	  $arr1=array();
-	  $size=0;	  
-	  while($r1=mysql_fetch_array($s1))
-	   {
-	   $err=0;
-        for($i=0;$i<$size;$i++)
-		 {
-		  if($arr1[$i]==$r1[pincode])
-		   {
-		    $err=1;
-			break;
-		   }
-		 }
-		if($err==0)
-		 {
-		  $arr1[]=$r1[pincode];
-		  $size++;
+	   	 echo '<option name=state value="'.$r1[state].'" >'.$r2[state].'</option>';
 		 }
 	   }
-	   for($i=0;$i<$size;$i++)
-	    {
-	   	 echo '<option name=pincode value="'.$arr1[$i].'" >'.$arr1[$i].'</option>';
-		}
+	  echo '</select>
+	  </td>';
+	  
+	  
+	  echo '<td>by</td>
+	  <td><select name=pincode title=PINCODE  class=sel ><option value=-1>--pincode--</option>';
+	  $s1=mysql_query($q_p); 
+	  while($r1=mysql_fetch_array($s1))
+	   {
+	   echo '<option name=pincode value="'.$r1[pincode].'" >'.$r1[pincode].'</option>';
+	   }
 	  echo '</select>
 	  </td>
-	  </tr>
+	  </tr>';
 	  
-	  
-	  </form></table>
+	  echo '</form></table>
 	  </div>';
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////THIS FUNCTION DISPLAYS THE FEEDBACK FORM LINK///////////////////////////////////////////////////////
 function feedback()
 {
 echo '<p class=note >Please do give us <a href="feedback.php" target=_blank title=feedback style="color:red;font-size: 20px;">here</a> your feedback about the changes you feel to be added on the website. Comments are always welcome!</p>';
 }
+////////////////////////THIS FUNCTION DISPLAYS THE FEEDBACK FORM LINK///////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 ?>

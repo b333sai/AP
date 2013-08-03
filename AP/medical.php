@@ -1,16 +1,14 @@
 <?php
+include("functions.php");
+header_content();
 ?>
 <?php
- include("header.php");
-?>
-<?php
- echo '<div id=page_container>
-       <div id=content >
+ echo '
 	   <center><h1>List of all Medical colleges</h1></center>';
  include("side_menu.php");
  echo '<div id=article><p>This is a page dedicated for all the Medical colleges</p></br></br></br></br></br></br><br />';
  go_top();
- echo '</div></div></div>';
+ echo '</div>';
 ?>
 <?php
  include("footer.php");

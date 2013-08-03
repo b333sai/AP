@@ -1,14 +1,15 @@
 <?php
+include("functions.php");
+header_content();
  echo '<title>Rankings</title>';
- include("header.php");
+
  echo '<script>
 onload=high(1);
 </script>';
+
 ?>
 <?php
- echo '<div id=page_container onload="high(1);">
-       <div id=content >
-	   <center><h2>Rankings Of Colleges</h2></center>';
+ echo '<center><h2>Rankings Of Colleges</h2></center>';
 	   ?>
 <?php
  include("side_menu.php");
@@ -77,7 +78,7 @@ echo '</table><br /><br />';
 
   feedback();
  echo '</div>';
- echo '</div></div>';
+
 ?>
 <?php
  include("footer.php");

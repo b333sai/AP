@@ -1,11 +1,12 @@
 <?php
-include("header.php");
+include("functions.php");
+header_content();
  echo '<script>
 onload=high(1);
 </script>';
 ?>
 <?php
-echo '<div id=page_container ><div id=content>';
+
 include("side_menu.php");
 echo '<div id=article >';
 echo '<h2>';
@@ -112,7 +113,7 @@ else
 }
 feedback();
 echo '</div>';
-echo '</div></div>';
+
 ?>
 <?php
 include("footer.php");

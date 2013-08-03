@@ -1,9 +1,10 @@
 <?php
-include("header.php");
+include("functions.php");
+header_content();
 ?>
 <?php
 echo '<title>Compare colleges</title>';
-echo '<div id=page_container><div id=content>';
+
 echo '<div id=main_article>';
 echo '<center><h2>Comparision</h2><br />';
 if(isset($_GET['c1']) && isset($_GET['c2']))
@@ -222,7 +223,7 @@ mysql_query("UPDATE `college_info` SET views=views+1 WHERE ap_id='$_GET[c2]'  ")
   echo '</tr>'; 
    
    
-  echo '<tr class=con ><td class=left_e >Nearest Bus Station:</td><td>'.$r2[bus].'</td><td>'.$r2[bus].'</td></tr>';
+  echo '<tr class=con ><td class=left_e >Nearest Bus Station:</td><td>'.$r1[bus].'</td><td>'.$r2[bus].'</td></tr>';
   
   
   echo '<tr class=con ><td class=left_e >Email:</td><td><a href=mailto:'.$r1[email].' target="_blank"  title='.$r1[email].' alt=.'.$r1[ap_id].' >'.$r1[email].'</a></td><td><a href=mailto:'.$r2[email].' target="_blank"  title='.$r2[email].' alt=.'.$r2[ap_id].' >'.$r2[email].'</a></td></tr>';
@@ -457,7 +458,7 @@ echo '<center>';
 feedback();
 echo '</center>';
 echo '<br /></div>';
-echo '</div></div>';
+
 ?>
 <?php
 include("footer.php");

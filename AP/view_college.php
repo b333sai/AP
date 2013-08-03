@@ -1,8 +1,10 @@
 <?php
-include("header.php");
+include("functions.php");
+header_content();
+
 ?>
 <?php
-echo '<div id=page_container><div id=content>';
+
 include("side_menu.php");
 echo '<div id=article>';
 echo '<div id=view_college>';
@@ -102,11 +104,18 @@ while($row=mysql_fetch_array($select))
   echo '<tr style="background-color:grey;color:white;" id=con_plus ><td colspan=2 ><img src="images/down.png" id=con_img height=23 width=23 />&nbsp;&nbsp;<b style="vertical-align:top;" >Contact Details</b></td></tr>';
   echo '<tr  class=con  ><td class=left_e >Address:</td><td>'.$row[address].'</td></tr>';
   echo '<tr  class=con ><td class=left_e >City:</td><td>'.$row[city].'</td></tr>';
-  $sel=mysql_query("SELECT * from states WHERE Sno='$row[state]' ");
-  while($r=mysql_fetch_array($sel))
-   {
-  echo '<tr class=con ><td class=left_e >State:</td><td>'.$r[state].'</td></tr>';
-   }
+  //USING JOIN
+  $sle=mysql_query("SELECT a.state FROM states a, college_info b WHERE b.ap_id='$_GET[c1]' AND b.state=a.Sno ");
+  //USING JOIN
+  while($rs=mysql_fetch_array($sle))
+  {
+  echo '<tr class=con ><td class=left_e >State:</td><td>'.$rs[state].'</td></tr>';  
+  }
+  // $sel=mysql_query("SELECT * from states WHERE Sno='$row[state]' ");
+  // while($r=mysql_fetch_array($sel))
+   // {
+  // echo '<tr class=con ><td class=left_e >State:</td><td>'.$r[state].'</td></tr>';
+   // }
   echo '<tr class=con ><td class=left_e >Pincode:</td><td>'.$row[pincode].'</td></tr>';
   echo '<tr class=con ><td class=left_e >Contact:</td><td>+91 - ('.substr($row[phone],0,2).') - '.substr($row[phone],2,strlen($row[phone])).'</td></tr>';
   if($row[fax]!="")
@@ -131,7 +140,7 @@ while($row=mysql_fetch_array($select))
 echo '</table>';
 echo '</div><br />';
 feedback();
-echo '</div></div></div>';
+echo '</div>';
 ?>
 <?php
 include("footer.php");

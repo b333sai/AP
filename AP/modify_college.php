@@ -1,10 +1,10 @@
 <?php
+include("functions.php");
+header_content();
 echo '<title>College Details Modification</title>';
-include("header.php");
 ?>
 <?php
-echo '<div id=page_container>
-<div id=content><div id=modify_college >';
+echo '<div id=modify_college >';
 if(isset($_GET['c']) && !(isset($_POST['submit'])))
 {
  register_form($_GET['c']);
@@ -368,15 +368,16 @@ $coun=0;
 
 if($err)
  {
-  echo '<div class=error >College not found!!!</div><br /><br /><br />';
+  echo '<div class=error >College not found!!!</div><br />';
   $err=0;
  }
   }
+  echo '<br /><br />';
 }
 }
 echo '<br /><br />';
 feedback();
-echo '</div></div></div>';
+echo '</div>';
 ?>
 <?php
 include("footer.php");

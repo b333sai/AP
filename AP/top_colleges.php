@@ -1,8 +1,9 @@
 <?php
-include("header.php");
+include("functions.php");
+header_content();
 ?>
 <?php
-echo '<div id=page_container><div id=content>';
+
 include("side_menu.php");
 if($_GET['stream']=="engineering")
 {
@@ -44,15 +45,17 @@ echo '<title>Top Colleges</title>';
 echo "<h2>Mostly viewed colleges</h2>";
 echo '<div id=article >';
 }
-$query="SELECT * from college_info ";
+$query="SELECT * FROM college_info ";
 if(!($_GET['stream']=="most_viewed"))
  {
   $query.="WHERE ";
  }
 $query.=$q;
+
+
 if(isset($_GET['next']))
 {
- $query.=" rank='$next' ";
+ $query.=" rank='$next'  ";
 }
 if($_GET['stream']=="most_viewed")
 {
@@ -60,9 +63,11 @@ if($_GET['stream']=="most_viewed")
 }
 else
 {
- $query.=" order by rank ";
+ $query.=" order by rank";
 }
-
+$off=2;
+$query.=" LIMIT 4 OFFSET $off ";
+//$query="SELECT * FROM college_info ";
 $s=mysql_query($query);
 $res_count=mysql_num_rows($s);
 echo "<br /><p>Showing results: </p>";
@@ -89,7 +94,7 @@ else
 echo '<table class=search_results cellpadding=8 >';
 $count=0;
 $f=1;
-while($r=mysql_fetch_array($s))
+while($r=mysql_fetch_array($s, MYSQL_ASSOC))
  {
 	  if($f==1)
 	   {
@@ -112,8 +117,7 @@ while($r=mysql_fetch_array($s))
 	  $count++;
 	  echo '<tr id='.$r[ap_id].' >';
 	  if($res_count>=2)
-	   echo '<td><input type=checkbox id=c name=c value='.$r[ap_id].' onclick=return(check_two(this)) /></td>';
-	   
+	   echo '<td><input type=checkbox id=c name=c value='.$r[ap_id].' disabled/></td>';
 	   echo '<td>'.$count.'</td><td>'.$r[name].'</td><td>'.$r[coll_code].'</td>';
 	  if($_GET['stream']=="most_viewed")
 	   {
@@ -125,7 +129,7 @@ while($r=mysql_fetch_array($s))
 	   }
 	  echo '<td><a target="_blank" href=view_college.php?c1='.$r[ap_id].' style="color:white;" ><u><b color=white ><big>Details</big></b></u></a></td></tr>';
  }
-
+mysql_free_result($s);
 echo '</table><br />';
 if($res_count>=2)
  echo '<div onclick=return(select_two()) id=compare >COMPARE</div><br />';
@@ -138,7 +142,7 @@ echo '<br /><br /><br /><br />';
 
 feedback();
 echo '</div>';
-echo '</div></div>';
+
 ?>
 <?php
 include("footer.php");

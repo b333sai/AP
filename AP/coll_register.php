@@ -1,10 +1,10 @@
 <?php
+
+include("functions.php");
+header_content();
 echo '<title>Institute Registration</title>';
-include("header.php");
 ?>
 <?php
-echo '<div id=page_container>
-<div id=content>';
 if(isset($_POST['submit']))
 {
  $name=$_POST['coll_name'];
@@ -83,6 +83,7 @@ if(isset($_POST['submit']))
  $contact=$_POST['contact'].$_POST['contact2'];
  $fax=$_POST['fax'].$_POST['fax2'];
  
+ $username=$_POST['username'];
  $password=$_POST['pass'];
  
  $train=$_POST['train'];
@@ -104,6 +105,13 @@ while($row1=mysql_fetch_array($select1))
  {
  $error=1;
  }
+$select2=mysql_query("SELECT username from college_info WHERE username='$username' ");
+$select3=mysql_query("SELECT username from users WHERE username='$username' ");
+if(!mysql_num_rows($select2))
+ $error=2;
+if(!mysql_num_rows($select3))
+ $error=2;
+ 
   //TO CHECK WHETHER THE REPETITIVE REGISTRATION OF COLLEGES//////////////////////////////////
  //to upload the file of the college///////////////
  echo "<center>";
@@ -115,8 +123,7 @@ while($row1=mysql_fetch_array($select1))
   {
    if($_FILES["file"]["error"] >0 )
     {
-	 echo "<p class=error >Error Code:".$_FILES["file"]["error"]."</p>";
-	 $error=2;
+	 $error=3;
 	}
    else
     {
@@ -125,9 +132,7 @@ while($row1=mysql_fetch_array($select1))
   }
  else
   {
-   echo "<p class=error ><img src=images/sad.png width=30 height=30 valign=bottom />&nbsp;&nbsp;&nbsp;Unexpected Error in Image upload!!! <br />Please choose a proper one!</p>";
-   register_form("0");
-   $error=2;
+   $error=4;
   }
  //to upload the logo of the college///////////////
 
@@ -136,12 +141,30 @@ if($error==1)
   echo '<center><img src="images/sad.png" width=30 height=30 valign=bottom />&nbsp;&nbsp;&nbsp;<font class=error >College Information already exists!!!</font></center><br />';
   register_form("0");
  }
-else if($error==0)
+
+else if($error==2)
+{
+  echo '<center><img src="images/sad.png" width=30 height=30 valign=bottom />&nbsp;&nbsp;&nbsp;<font class=error >Username already exists!!!</font></center><br />';
+  register_form("0");
+}
+else if($error==3)
+{
+  echo "<center><p class=error >Error Code:".$_FILES["file"]["error"]."</p></center>";
+  register_form("0");
+}
+else if($error==4)
+{
+   echo "<center><p class=error ><img src=images/sad.png width=30 height=30 valign=bottom />&nbsp;&nbsp;&nbsp;Unexpected Error in Image upload!!! <br />Please choose a proper one!</p></center>";
+   register_form("0");
+}
+else
  {
   $password=md5($password);
- $c_date=r_time_stamp(time());
- mysql_query("INSERT  INTO `college_info` SET name='$name',shrt_name='$shrt_name', coll_code='$coll_code',engineering='$eng',medical='$med',management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$established',director='$director', date_created='$c_date', date_modified='$c_date',category='$category', type='$type', affiliated='$affiliated', app_no='$app_no', eng_courses='$eng_courses[0]', med_courses='$med_courses[0]', man_courses='$man_courses[0]', ap_id='$ap_id' , password='$password'");
- echo "<br /><br /><b>Your Application No:</b> ".$app_no."<div class=note >(keep this for future reference)</div><p class=success ><img src=images/congratulations.png /></br>Thank You!!!<br />Your application is approved/rejected within 24hrs. <br />Check your status after 24hrs!!!</p>";
+  $c_date=r_time_stamp(time());
+  mysql_query("INSERT  INTO `college_info` SET username='$username', name='$name',shrt_name='$shrt_name', coll_code='$coll_code',engineering='$eng',medical='$med',management='$man',auditorium='$audit',canteen='$cant',computer_labs='$comp',medical_facility='$medi', email='$email',gym='$gm',laboratories='$lab',library='$lib',sports='$spo',hostels='$host',intake='$intake',address='$address',city='$city',state='$state',pincode='$pincode',phone='$contact',fax='$fax',train='$train',bus='$bus',website='$website',year_of_opening='$established',director='$director', date_created='$c_date', date_modified='$c_date',category='$category', type='$type', affiliated='$affiliated', app_no='$app_no', eng_courses='$eng_courses[0]', med_courses='$med_courses[0]', man_courses='$man_courses[0]', ap_id='$ap_id' , password='$password'");
+  
+  
+  echo "<br /><br /><b>Your Application No:</b> ".$app_no."<div class=note >(keep this for future reference)</div><p class=success ><img src=images/congratulations.png /></br>Thank You!!!<br />Your application is approved/rejected within 24hrs. <br />Check your status after 24hrs!!!</p>";
  echo "<br /><br /><br />";
  feedback();
  echo '</center>';
@@ -151,7 +174,7 @@ else
 {
 register_form("0");
 }
-echo '</div></div>';
+
 ?>
 <?php
 include("footer.php");

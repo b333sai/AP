@@ -4,19 +4,28 @@ body
  font-family: "Times New Roman";
  background-color: #f2f2f2;
  color: black;
+
 }
 h1,h2,h3,h4,h5,h6
 {
  margin: 0;
  color: black;
 }
+h1 {
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+  -webkit-background-clip: text;
+     -moz-background-clip: text;
+          background-clip: text;
+}
 textarea{max-width: 300px; max-height: 100px;}
 a,a:hover,a:active,a:focus
 {
  margin:0;
  text-decoration: none;
- color: blue;
 }
+
 blockquote
 {
  font-style: italic;
@@ -37,13 +46,22 @@ table.college_view
 }
 /*END OF THE COMMON PROPERTIES OF THE DOCUMENT////////////////////////////////////////////////////////////////////////////*/
 
-
+#bd
+{
+ width: 100%;
+ height: 100%;
+ top: 0;
+ left: 0;
+ z-index:-100;
+}
 
 /*THIS WILL HOLD ALL THE CONTENTS OF THE WEBPAGES//////////////////////////////////////////////////////////////////////////*/
 #container
 {
  width: 1000px;
  margin: 0 auto;
+  position: relative;
+  z-index: 900;
   /* border: 1px solid violet; */
 }
 /*THIS WILL HOLD ALL THE CONTENTS OF THE WEBPAGES//////////////////////////////////////////////////////////////////////////*/
@@ -63,8 +81,10 @@ table.college_view
 }
 #header a
 {
- font-size: 65px;
+ font-size: 70px;
+ font-family: Arial;
  color: white;
+
 }
 #top_menu/*TOP MENU IN THE HEADER*/
 {
@@ -95,6 +115,7 @@ width: 200px;
 #first
 {
  border-radius: 15px 0 0 0;
+ box-shadow: -4px 3px 15px 0 #7d7d7d;
 }
 #second, #third, #fourth, #last
 {
@@ -103,6 +124,7 @@ border-left: 0px solid white;
 #last
 {
  border-radius: 0 15px 0 0;
+  box-shadow: 4px 3px 15px 0 #7d7d7d;
 }
 /*TO HOLD THE HEADER DETAILS//////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -146,25 +168,27 @@ border-left: 0px solid white;
  margin: 0 auto;
  border-radius: 0 0 15px 15px;
  background-color: white;
- color: #2e64fe;
- box-shadow:   0 0 15px #7d7d7d;
+ color: #232323;
+ box-shadow:  0 0 15px 0px #7d7d7d;
  float: left;
  /* border: 1px solid red; */
 }
 #content/*TO HOLD THE CONTENTS OF THE PAGE*/
 {
  /* border: 3px solid pink; */
- width: 1000px;
+ width: 980px;
  color: #2a364c;
  font-family: Georgia, Arial, Helvetica, sans-serif;
  padding: 10px 0 0px 5px;
  font-size: 20px;
+ position: relative;
 }
+
 #page_container h2,h1
 {
  color: #801fb5;
  text-shadow: 1px 1px 3px #afbab9;
- font-family: sans-serif;
+ font-family: sans-serif; 
 }
 /*TO HOLD THE CONTENTS OF THE PAGE/////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -227,7 +251,7 @@ border-left: 0px solid white;
 
 
 /*COLLEGE REGISTRATION FORM DETAILS//////////////////////////////////////////////////////////////////////////////////////*/
-#submit,#reset
+#submit, #reset
 {
  font-size:23px;
 }
@@ -250,7 +274,7 @@ width: 965px;
  color: #0072a6;
  text-align: right;
  vertical-align: top;
- width: 320px;
+ width: 300px;
 }
 .right
 {
@@ -358,10 +382,12 @@ width: 665px;
  text-align: left;
  color: white;
 }
-.search_results_selected tr
+
+.search_results_selected
 {
  background-color: black;
 }
+
 .sel /*this is for the width of selection input elements*/
 {
  width: 138px;
@@ -385,6 +411,10 @@ width: 665px;
  width: 950px;
  border-collapse:collapse;
  margin-left: 20px;
+}
+#two_digit/*this is for the area code text box in the contact field*/
+{
+ width: 20px;
 }
 #comparision th
 {
@@ -419,7 +449,11 @@ width: 665px;
 #engg, #medic, #manage
 {
  display: none;
- width: 50px;
+ width: 150px;
+}
+#courses_table tr
+{
+ width: 600px;
 }
 #reg_table/*table in registration form*/
 {
@@ -460,7 +494,65 @@ width: 665px;
 {
 display: none;
 }
+#login_form
+{
+ display: none;
+ background:#d4dadc;
+ position: absolute;
+ top: 45px;
+ right: 0px;
+ font-size: 22px;
+ opacity: 0.8;
+ border-radius: 10px;
+ border: 3px solid grey;
+ color: black;
+ box-shadow: 0px 0px 10px grey;
+ padding: 20px 30px;
+}
+#login_box
+{
+ padding: 2px 6px;
+ width: 80px;
+ text-align: center;
+ background-color: #a6d6f2;
+ border-radius: 5px;
+ border: 2px solid green;
+}
+#login_box a
+{
+ color: #00697a;
+}
+#clock
+{
+ position: absolute;
+ top: 5px;
+ right: 5px;
+ font-weight: bold;
+ color: white;
+ font-size: 15px;
+ 
+}
 
+.s_left, .s_right
+{
+ text-align: right;
+ color: #0072a6;
+}
+.s_right
+{
+ text-align: left;
+}
+#h_warning,#c_h_warning
+{
+ display: none;
+ color: red;
+ font-size: 15px;
+}
+#reg_p_warning
+{
+ color: #d7d7d7;
+ font-size:15px;
+}
 /*FOOTER DETAILS///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 #footer
 {

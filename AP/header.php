@@ -15,16 +15,20 @@
  //To include all the associated scripts
   echo "<script src=script/jquery.js ></script>";
   echo "<script src=script/script.js ></script>";
+  echo "<script src=script/bmw_validations.js ></script>";
  //To include all the associated scripts
  
  
  echo "</head>";
  
- echo '<div id=container ><div id="header" ><center></br><a href="index.php" >Admission Portal</a>
-       </br><font size=4 >A complete information of all the colleges in India till 2013</font></center></div>';
+ echo '<div id=bd><div id=container ><div id="header" ><center></br><a href="index.php" >Admission Portal</a>
+       </br><font size=4 >A complete information of all the colleges in India till 2013</font></center></div><span id=clock ><script>	var now = new Date(); document.write(now.toLocaleTimeString() + "<br />" + now.toDateString()); </script></span>';
 ?>
 <?php
  include("connect.php");
  include("top_menu.php");
- include("functions.php");
+ //include("functions.php");
+  echo '<div id=page_container >
+ <div id=content >';
+
 ?>

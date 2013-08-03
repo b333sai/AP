@@ -1,13 +1,13 @@
 <?php
- echo '<title>Statistics</title>';
- include("header.php");
+include("functions.php");
+header_content();
  echo '<script>
 onload=high(2);
 </script>';
+
 ?>
 <?php
- echo '<div id=page_container>
-       <div id=content >
+ echo '
 	   <center><h2>Statistics Of Colleges</h2></center>';
 	   ?>
 <?php
@@ -20,7 +20,7 @@ onload=high(2);
 
  feedback();
  echo '</div>';
- echo '</div></div>';
+
 ?>
 <?php
  include("footer.php");
